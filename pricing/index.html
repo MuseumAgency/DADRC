@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>DAD Pricing Model</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Public+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a mixing desk — the controls (goal, run, costs) in a left rack, the readouts (charge, band price, monthly pay) on the right, the full quantity table underneath */
+:root{
+  --paper:#EEF0EC; --ink:#15181C; --muted:#5A6068; --rule:#C9CDC6; --groove:#E2E5DF; --card:#F7F8F5;
+  --accent:#2338B8; --accent-ink:#FFFFFF; --orange:#D55A22; --ok:#1E7A45; --bad:#B23A10;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --gutL:max(24px,env(safe-area-inset-left,0px)); --gutR:max(24px,env(safe-area-inset-right,0px)); --padT:24px; --navH:58px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#111418; --ink:#E6E8E3; --muted:#9AA1A9; --rule:#2C3238; --groove:#1A1F24; --card:#171B20;
+  --accent:#8C9CFF; --accent-ink:#0E1220; --orange:#F0956A; --ok:#4FC184; --bad:#F0956A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111418; --ink:#E6E8E3; --muted:#9AA1A9; --rule:#2C3238; --groove:#1A1F24; --card:#171B20;
+  --accent:#8C9CFF; --accent-ink:#0E1220; --orange:#F0956A; --ok:#4FC184; --bad:#F0956A; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;
+  padding-left:var(--gutL);padding-right:var(--gutR);padding-block:var(--padT) 48px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.dad-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--paper);border-bottom:1px solid var(--rule);
+  margin:calc(-1 * var(--padT)) calc(-1 * var(--gutR)) 0 calc(-1 * var(--gutL));padding:10px var(--gutR) 10px var(--gutL);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;height:var(--navH)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:16;background:var(--paper)}
+.dad-brand{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.06em;color:var(--ink);text-decoration:none}
+.dad-brand span{color:var(--orange)}
+.dad-menu-btn{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:transparent;border:2px solid var(--ink);padding:7px 12px;cursor:pointer}
+.dad-menu-btn:hover{font-weight:700}
+.dad-burger{display:inline-flex;flex-direction:column;gap:4px;width:18px}
+.dad-burger i{display:block;height:2px;background:var(--ink)}
+.dad-menu{position:absolute;top:100%;right:var(--gutR);width:min(340px,calc(100vw - var(--gutL) - var(--gutR)));max-height:calc(100vh - var(--navH) - 16px);overflow:auto;background:var(--paper);border:2px solid var(--ink);padding:16px 18px 18px;display:grid;gap:16px;box-shadow:0 10px 24px rgba(0,0,0,.14)}
+.dad-menu h5{margin:0 0 8px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dad-codes{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.dad-codes a{display:flex;align-items:center;justify-content:center;height:40px;border:1px solid var(--rule);font-family:var(--mono);font-size:14px;color:var(--ink);text-decoration:none}
+.dad-codes a:hover,.dad-codes a:focus-visible{border-color:var(--accent);color:var(--accent);font-weight:700}
+.dad-stack{display:grid;gap:8px}
+.dad-menu{gap:0;padding-top:6px}
+.dad-acc{border-bottom:1px solid var(--rule)}
+.dad-acc:last-of-type{border-bottom:0}
+.dad-acc>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;padding:12px 2px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dad-acc>summary::-webkit-details-marker{display:none}
+.dad-acc>summary b{font-weight:500;margin-left:auto;opacity:.7}
+.dad-acc>summary::after{content:"";flex:0 0 auto;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin:-5px 4px 0 6px;transition:transform .15s}
+.dad-acc[open]>summary::after{transform:rotate(-135deg);margin-top:3px}
+.dad-acc>summary:hover,.dad-acc[open]>summary{color:var(--ink)}
+.dad-acc>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dad-acc>.dad-stack,.dad-acc>.dad-codes,.dad-acc>.codes,.dad-acc>.rdl{margin-bottom:14px}
+.dad-menu .dad-note,.menu .dad-note{margin-top:12px}
+.dad-link{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--rule);color:var(--ink);text-decoration:none;font-weight:600}
+.dad-link:hover,.dad-link:focus-visible{border-color:var(--accent);color:var(--accent)}
+.dad-link span{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:400}
+.dad-link[aria-current="page"]{border-color:var(--ink);background:var(--groove)}
+
+.wrap{max-width:1240px;margin:0 auto;padding-top:32px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(46px,6vw,76px);line-height:.9;margin:10px 0 12px;text-transform:uppercase;border-top:10pt solid var(--orange);padding-top:14px}
+h1 span{color:var(--accent)}
+.lede{margin:0;max-width:70ch;color:var(--muted)}
+
+.desk{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:28px;margin-top:26px;align-items:start}
+.rack{display:grid;gap:14px}
+.panel{border:2px solid var(--ink);background:var(--card);padding:16px 18px 18px}
+.panel h2{font-family:var(--display);font-weight:800;font-size:24px;text-transform:uppercase;margin:0 0 12px;line-height:1}
+.q{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;display:block}
+.seg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:2px solid var(--ink)}
+.seg label{position:relative;cursor:pointer}
+.seg input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.seg span{display:flex;align-items:center;justify-content:center;min-height:40px;padding:6px 8px;font-size:14px;font-weight:600;text-align:center}
+.seg input:checked+span{background:var(--ink);color:var(--paper)}
+.seg input:focus-visible+span{outline:2px solid var(--accent);outline-offset:-4px}
+.field{display:grid;gap:4px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.fields .wide{grid-column:1 / -1}
+input[type=number]{font:inherit;font-size:16px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink);background:var(--paper);border:2px solid var(--ink);border-radius:0;padding:7px 9px;width:100%;height:42px}
+.unit{position:relative}
+.unit input{padding-left:22px}
+.unit.pct input{padding-left:9px;padding-right:26px}
+.unit::before{content:"$";position:absolute;left:9px;top:50%;transform:translateY(-50%);font-weight:600;color:var(--muted);pointer-events:none}
+.unit.pct::before{content:"%";left:auto;right:10px}
+.unit.min::before,.unit.hr::before,.unit.n::before{content:""}
+.qtys{display:flex;flex-wrap:wrap;gap:6px}
+.qtys label{position:relative;cursor:pointer}
+.qtys input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.qtys span{display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:38px;padding:0 8px;border:2px solid var(--rule);background:var(--paper);font-family:var(--mono);font-size:14px;font-variant-numeric:tabular-nums}
+.qtys label:hover span{border-color:var(--ink)}
+.qtys input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+.qtys input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+details.panel summary{cursor:pointer;font-family:var(--display);font-weight:800;font-size:24px;text-transform:uppercase;line-height:1;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.panel summary::-webkit-details-marker{display:none}
+details.panel summary::after{content:"+";font-family:var(--mono);font-size:20px}
+details.panel[open] summary::after{content:"–"}
+details.panel h3{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:16px 0 0}
+.reset{margin-top:14px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;border:1.5px solid var(--ink);background:transparent;color:var(--ink);padding:7px 10px;cursor:pointer}
+.reset:hover{font-weight:700}
+
+.read{display:grid;gap:16px}
+.hero{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:2px solid var(--ink)}
+.hero > div{padding:16px 18px;min-width:0}
+.hero > div + div{border-left:1px solid var(--rule)}
+.hero .k{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.hero .v{font-family:var(--display);font-weight:900;font-size:clamp(40px,4.4vw,60px);line-height:.95;font-variant-numeric:tabular-nums;margin-top:4px}
+.hero .s{font-size:14px;color:var(--muted);margin-top:4px}
+.hero .main{background:var(--accent);color:var(--accent-ink)}
+.hero .main .k,.hero .main .s{color:var(--accent-ink);opacity:.85}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.box{border:2px solid var(--ink);background:var(--card);padding:16px 18px}
+.box h3{font-family:var(--display);font-weight:800;font-size:22px;text-transform:uppercase;margin:0 0 8px;line-height:1}
+.lines{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.lines td{padding:6px 0;border-bottom:1px solid var(--rule);font-size:14px;vertical-align:top}
+.lines td:last-child{text-align:right;white-space:nowrap;padding-left:10px}
+.lines tr.t td{font-weight:700;border-bottom:2px solid var(--ink)}
+.lines tr.sub td{color:var(--muted);font-size:13px}
+.pos{color:var(--ok)} .neg{color:var(--bad)}
+.flag{font-size:14px;padding:10px 12px;border-left:4px solid var(--orange);background:var(--groove)}
+.flag:empty{display:none}
+
+.tablewrap{overflow-x:auto;margin-top:28px;border-top:2px solid var(--ink)}
+.tablewrap h2{font-family:var(--display);font-weight:800;font-size:30px;text-transform:uppercase;margin:16px 0 4px;line-height:1}
+.tablewrap p{margin:0 0 10px;color:var(--muted);font-size:14px}
+table.all{border-collapse:collapse;width:100%;min-width:900px;font-variant-numeric:tabular-nums}
+table.all th,table.all td{padding:8px 10px;border-bottom:1px solid var(--rule);text-align:right;font-size:14px;white-space:nowrap}
+table.all th{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);vertical-align:bottom}
+table.all th:first-child,table.all td:first-child{text-align:left}
+table.all tr.sel td{background:var(--groove);font-weight:700}
+table.all tbody tr{cursor:pointer}
+table.all tbody tr:hover td{background:var(--groove)}
+.note{font-size:13px;color:var(--muted);margin-top:10px}
+.locked-out{max-width:560px;margin:60px auto;border:2px solid var(--ink);padding:28px;display:grid;gap:12px}
+.locked-out h2{margin:0;font-family:var(--display);text-transform:uppercase}
+.locked-out a{color:var(--accent);font-weight:700}
+
+@media (max-width:980px){.desk{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){
+  :root{--gutL:max(15pt,env(safe-area-inset-left,0px));--gutR:max(15pt,env(safe-area-inset-right,0px));--padT:15pt}
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .hero > div + div{border-left:0;border-top:1px solid var(--rule)}
+  .cards{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+
+</head>
+<body>
+<nav class="dad-nav" aria-label="Site">
+  <a class="dad-brand" href="../">DAD<span>RC</span></a>
+  <button class="dad-menu-btn" id="dad-menu-btn" type="button" aria-expanded="false" aria-controls="dad-menu"><span class="dad-burger" aria-hidden="true"><i></i><i></i><i></i></span>Menu</button>
+  <div class="dad-menu" id="dad-menu" hidden>
+    <details class="dad-acc" name="dadmenu"><summary>Plan sections<b>12</b></summary><div class="dad-codes"><a href="https://museumagency.github.io/DADRC/#a1">A1</a><a href="https://museumagency.github.io/DADRC/#a2">A2</a><a href="https://museumagency.github.io/DADRC/#a3">A3</a><a href="https://museumagency.github.io/DADRC/#a4">A4</a><a href="https://museumagency.github.io/DADRC/#a5">A5</a><a href="https://museumagency.github.io/DADRC/#a6">A6</a><a href="https://museumagency.github.io/DADRC/#b1">B1</a><a href="https://museumagency.github.io/DADRC/#b2">B2</a><a href="https://museumagency.github.io/DADRC/#b3">B3</a><a href="https://museumagency.github.io/DADRC/#b4">B4</a><a href="https://museumagency.github.io/DADRC/#b5">B5</a><a href="https://museumagency.github.io/DADRC/#b6">B6</a></div></details>
+    <details class="dad-acc" name="dadmenu" open><summary>Plan<b>5</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/CTrVngFvwUV1VsAYdCnhwJ">Roadmap <span>Shared checklist</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/decisions/">Decisions log <span>Locked, proposed, open</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/pricing/" aria-current="page">Pricing model <span>You are here</span></a><a class="dad-link" href="https://claude.ai/artifact/Mz1GsSDMYY7fi9Ptd6HxAw">Meeting hub <span>Agendas, notes</span></a><a class="dad-link" href="https://claude.ai/artifact/KTAcR3dezMEUYpaARAn366">Quarterly review <span>Payouts, 60/40 check</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Sales<b>3</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/VWjkTmoZRBZHB57iMrtue7">Athens bands <span>Who to pitch</span></a><a class="dad-link" href="https://claude.ai/artifact/PEDVE8jiW7Tzb227VUp5nT">Venues & partners <span>Stores, venues, press</span></a><a class="dad-link" href="https://claude.ai/artifact/HGSo7QxRjmK2au2XEfD4jH">Events & markets <span>Booths and deadlines</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Operations<b>5</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/7f2UW7JtXupwPm7XcDXd2p">Order tracker <span>Shared board</span></a><a class="dad-link" href="https://claude.ai/artifact/BJjde8fQcEyLrwSB3DvmE7">Money ledger <span>Cash in, cash out</span></a><a class="dad-link" href="https://claude.ai/artifact/DGP4dC4Eja7mdYFeJM3Ptx">Hours log <span>Who put in what</span></a><a class="dad-link" href="https://claude.ai/artifact/5KdhuCopcqRWGBrj2dhJsZ">Hardware log <span>Parts, service, stylus</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/vendors/">Vendors <span>Prices, last checked</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Resources<b>5</b></summary><div class="dad-stack"><a class="dad-link" href="https://museumagency.github.io/DADRC/templates/">Message templates <span>Copy, paste, send</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/brand/">Brand brief <span>Look, voice, designer brief</span></a><a class="dad-link" href="https://claude.ai/artifact/5Rn1xgM9nJAaeebW6pRjB2">Identity Concepts <span>Logos, scorecard</span></a><a class="dad-link" href="https://claude.ai/artifact/XCbwtdezjfjXZ9CMXP1EnV">Inspiration board <span>Mood board</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/glossary/">Lathe glossary <span>Terms, plain English</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Band pages<b>3</b></summary><div class="dad-stack"><a class="dad-link" href="https://museumagency.github.io/DADRC/book/">Book a run <span>Band page</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/prices/">Prices <span>Band page</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/faq/">Band FAQ <span>Band page</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>R&amp;D<b>1</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/1bWi4weUuCLtZAFG6ZyT7E">Run Timer <span>Thursday dry run</span></a></div></details>
+  </div>
+</nav>
+
+<main class="wrap" id="app" hidden>
+  <div class="eyebrow">DAD Record Cutters · Internal · Confidential</div>
+  <h1>Pricing <span>model</span></h1>
+  <p class="lede">Set what the business needs to earn, pick a run size, and see what to charge a band, what the band should sell each record for, and what each of us takes home. Costs start from the cost model; change any of them under Costs.</p>
+
+  <div class="desk">
+    <div class="rack">
+      <section class="panel" aria-labelledby="h-goal">
+        <h2 id="h-goal">1 · Goal</h2>
+        <span class="q" id="q-mode">Price to hit</span>
+        <div class="seg" role="radiogroup" aria-labelledby="q-mode">
+          <label><input type="radio" name="mode" value="payout" id="m-payout" checked><span>Monthly payout</span></label>
+          <label><input type="radio" name="mode" value="margin" id="m-margin"><span>Margin per run</span></label>
+        </div>
+        <div class="fields">
+          <div class="field" id="f-payout"><label class="q" for="payout">Business profit / month</label><div class="unit"><input type="number" id="payout" min="0" step="50"></div></div>
+          <div class="field" id="f-margin" hidden><label class="q" for="margin">Margin on price</label><div class="unit pct"><input type="number" id="margin" min="0" max="80" step="1"></div></div>
+          <div class="field"><label class="q" for="runs">Runs / month</label><div class="unit n"><input type="number" id="runs" min="1" max="30" step="1"></div></div>
+          <div class="field"><label class="q" for="own">Josh's ownership</label><div class="unit pct"><input type="number" id="own" min="0" max="100" step="5"></div></div>
+          <div class="field"><label class="q" for="bandm">Band's margin goal</label><div class="unit pct"><input type="number" id="bandm" min="0" max="90" step="5"></div></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-run">
+        <h2 id="h-run">2 · The run</h2>
+        <span class="q" id="q-size">Size</span>
+        <div class="seg" role="radiogroup" aria-labelledby="q-size">
+          <label><input type="radio" name="size" value="10" id="s-10" checked><span>10"</span></label>
+          <label><input type="radio" name="size" value="7" id="s-7"><span>7"</span></label>
+        </div>
+        <span class="q" id="q-qty" style="margin-top:12px">Records</span>
+        <div class="qtys" id="qtys" role="radiogroup" aria-labelledby="q-qty"></div>
+      </section>
+
+      <details class="panel" id="costs">
+        <summary>3 · Costs</summary>
+        <div id="cost-fields"></div>
+        <button class="reset" type="button" id="reset">Reset to the cost model</button>
+      </details>
+    </div>
+
+    <div class="read" aria-live="polite">
+      <div class="hero">
+        <div class="main"><div class="k">Charge the band</div><div class="v" id="r-total">$0</div><div class="s" id="r-split"></div></div>
+        <div><div class="k">Band sells each for</div><div class="v" id="r-merch">$0</div><div class="s" id="r-merch-s"></div></div>
+        <div><div class="k">Our profit this run</div><div class="v" id="r-profit">$0</div><div class="s" id="r-profit-s"></div></div>
+      </div>
+      <div class="flag" id="flag"></div>
+      <div class="cards">
+        <div class="box"><h3>This run</h3><table class="lines" id="t-run"></table></div>
+        <div class="box"><h3>The band</h3><table class="lines" id="t-band"></table></div>
+        <div class="box"><h3>Each month</h3><table class="lines" id="t-month"></table></div>
+        <div class="box"><h3>Price sheet numbers</h3><table class="lines" id="t-sheet"></table></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tablewrap">
+    <h2>Every run size</h2>
+    <p id="t-all-sub">Same goal and costs at every quantity. Tap a row to select it.</p>
+    <table class="all" id="t-all"></table>
+    <p class="note">Profit is after everyone is paid for their hours, materials, stylus wear, hardware payback and card fees, before overhead. Monthly payouts are before the cash reserve and capital repayment, which come first each quarter.</p>
+  </div>
+</main>
+
+<div class="locked-out" id="locked-out" hidden>
+  <h2>Sign the agreement first</h2>
+  <p>The pricing model is part of the confidential plan. Sign the confidentiality agreement on the plan page, then come back.</p>
+  <p><a href="../">Go to the plan and sign</a></p>
+</div>
+
+<script>
+var NDA_KEY="dadrc-nda-v1 2026-10-26";
+/* Starting values come from the DAD cost model (Oct 26, 2026, with Mike's answers). */
+var DEFAULTS={
+  mode:"payout", payout:1000, margin:25, runs:2, own:60, bandm:40, size:"10", qty:20,
+  blank10:3.00, blank7:2.50, spoil:4, jkt10a:6, jkt10b:5, jkt10n:20, jkt7:1.50, label:0.50, sleeve:0.40, consum:0.15,
+  stylus:200, stylusSides:500, hw:896, hwLife:1000, cardPct:3.3, cardFix:0.60, overhead:196.66,
+  master10:3, master7:2, setupHr:0.5, cutMin:4, prepMin:6, packMin:5, qcMin:2, artHr:2, salesHr:1,
+  rMaster:40, rCut:30, rPack:18, rArt:40, rJosh:54.08
+};
+var COSTS=[
+ ["Materials",[["blank10",'10" blank',"$"],["blank7",'7" blank',"$"],["spoil","Bad cuts","%"],["jkt10a",'10" jacket, first N',"$"],["jkt10b",'10" jacket, after N',"$"],["jkt10n","Jacket tier N","n"],["jkt7",'7" jacket','$'],["label","Labels / record","$"],["sleeve","Inner sleeve","$"],["consum","Prep supplies / record","$"]]],
+ ["Wear and fees",[["stylus","Cutting stylus","$"],["stylusSides","Sides per stylus","n"],["hw","Hardware to repay","$"],["hwLife","Records to repay it","n"],["cardPct","Card fee","%"],["cardFix","Card fee per sale","$"],["overhead","Overhead / month","$"]]],
+ ["Mike's time",[["master10",'Mastering, 10"',"hr"],["master7",'Mastering, 7"',"hr"],["setupHr","First cut + setup","hr"],["cutMin","Cutting / record","min"],["prepMin","Prep + labels / record","min"],["packMin","Packing / record","min"]]],
+ ["Josh's time",[["artHr","Artwork","hr"],["salesHr","Sales + client","hr"],["qcMin","QC / record","min"]]],
+ ["Rates / hour",[["rMaster","Mike: mastering","$"],["rCut","Mike: cutting, prep","$"],["rPack","Mike: packing","$"],["rArt","Josh: artwork","$"],["rJosh","Josh: sales, QC","$"]]]
+];
+var S={};var KEY="dadrc-pricing-v1";
+function load(){S=JSON.parse(JSON.stringify(DEFAULTS));try{var x=JSON.parse(localStorage.getItem(KEY)||"{}");for(var k in x)if(k in S)S[k]=x[k];if(S.cardPct==2.9&&S.cardFix==0.3){S.cardPct=3.3;S.cardFix=0.6}}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function $(id){return document.getElementById(id)}
+function money(n,dec){var neg=n<0;n=Math.abs(n);var s=n.toLocaleString("en-US",{minimumFractionDigits:dec?2:0,maximumFractionDigits:dec?2:0});return (neg?"−$":"$")+s}
+function pct(n){return (Math.round(n*1000)/10).toFixed(1)+"%"}
+function ceilTo(n,step){return Math.ceil(n/step-1e-9)*step}
+
+/* ---------- the math ---------- */
+function costs(size,q){
+  var b=size==="10"?S.blank10:S.blank7;
+  var jk=size==="10"?(Math.min(q,S.jkt10n)*S.jkt10a+Math.max(q-S.jkt10n,0)*S.jkt10b):q*S.jkt7;
+  var mat=q*b*(1+S.spoil/100)+jk+q*(S.label+S.sleeve+S.consum);
+  var wear=q*2*S.stylus/Math.max(1,S.stylusSides)+q*S.hw/Math.max(1,S.hwLife);
+  var mMaster=(size==="10"?S.master10:S.master7)*S.rMaster;
+  var mSetup=S.setupHr*S.rCut;
+  var mCut=q*(S.cutMin+S.prepMin)/60*S.rCut;
+  var mPack=q*S.packMin/60*S.rPack;
+  var jArt=S.artHr*S.rArt, jSales=S.salesHr*S.rJosh, jQc=q*S.qcMin/60*S.rJosh;
+  var mike=mMaster+mSetup+mCut+mPack, josh=jArt+jSales+jQc;
+  var mikeHr=(size==="10"?S.master10:S.master7)+S.setupHr+q*(S.cutMin+S.prepMin+S.packMin)/60;
+  var joshHr=S.artHr+S.salesHr+q*S.qcMin/60;
+  var fixed=mMaster+mSetup+jArt+jSales;
+  var total=mat+wear+mike+josh;
+  return {mat:mat,wear:wear,mike:mike,josh:josh,mikeHr:mikeHr,joshHr:joshHr,fixed:fixed,variable:(total-fixed)/q,total:total};
+}
+function price(size,q){
+  var c=costs(size,q),cp=S.cardPct/100,target;
+  if(S.mode==="margin"){var m=S.margin/100;target=(c.total+S.cardFix)/Math.max(.05,1-cp-m)}
+  else{var need=(Number(S.payout)+Number(S.overhead))/Math.max(1,S.runs);target=(c.total+need+S.cardFix)/(1-cp)}
+  var k=target/c.total;
+  var setup=ceilTo(c.fixed*k,5), per=Math.ceil(c.variable*k-1e-9);
+  var charge=setup+per*q, fees=charge*cp+S.cardFix, profit=charge-fees-c.total;
+  var each=charge/q, bm=S.bandm/100, merch=ceilTo(each/Math.max(.05,1-bm),5);
+  var bandProfit=merch-each;
+  return {c:c,setup:setup,per:per,charge:charge,fees:fees,profit:profit,margin:profit/charge,each:each,merch:merch,
+    bandProfit:bandProfit,bandMargin:bandProfit/merch,breakeven:Math.ceil(charge/merch)};
+}
+
+/* ---------- build controls ---------- */
+var QTYS=[];for(var i=10;i<=100;i+=5)QTYS.push(i);
+function buildQtys(){var r=$('qtys');r.textContent="";QTYS.forEach(function(q){var l=document.createElement('label');
+  l.innerHTML='<input type="radio" name="qty" value="'+q+'" id="q-'+q+'"><span>'+q+'</span>';r.appendChild(l)})}
+function buildCosts(){var r=$('cost-fields');r.textContent="";
+  COSTS.forEach(function(g){var h=document.createElement('h3');h.textContent=g[0];r.appendChild(h);var f=document.createElement('div');f.className='fields';
+    g[1].forEach(function(x){var u=x[2]==="$"?"unit":x[2]==="%"?"unit pct":"unit "+x[2];
+      f.insertAdjacentHTML('beforeend','<div class="field"><label class="q" for="c-'+x[0]+'">'+x[1]+(x[2]==="min"?" (min)":x[2]==="hr"?" (hrs)":"")+'</label><div class="'+u+'"><input type="number" id="c-'+x[0]+'" data-k="'+x[0]+'" step="any" min="0"></div></div>')});
+    r.appendChild(f)})}
+function syncIn(){
+  $('m-payout').checked=S.mode==="payout";$('m-margin').checked=S.mode==="margin";
+  $('f-payout').hidden=S.mode!=="payout";$('f-margin').hidden=S.mode!=="margin";
+  ["payout","margin","runs","own","bandm"].forEach(function(k){if(document.activeElement!==$(k))$(k).value=S[k]});
+  $('s-10').checked=S.size==="10";$('s-7').checked=S.size==="7";
+  var qr=$('q-'+S.qty);if(qr)qr.checked=true;
+  document.querySelectorAll('[data-k]').forEach(function(i){if(document.activeElement!==i)i.value=S[i.dataset.k]});
+}
+function num(v,d){v=parseFloat(v);return isNaN(v)?d:v}
+
+/* ---------- render ---------- */
+function render(){
+  var p=price(S.size,S.qty),c=p.c,L=S.size==='10'?'10"':'7"',own=S.own/100;
+  $('r-total').textContent=money(p.charge);
+  $('r-split').textContent=money(p.setup)+" setup + "+S.qty+" × "+money(p.per)+" · "+money(p.each,1)+" a record";
+  $('r-merch').textContent=money(p.merch);
+  $('r-merch-s').textContent="Band clears "+money(p.bandProfit,1)+" a record ("+pct(p.bandMargin)+")";
+  $('r-profit').textContent=money(p.profit);$('r-profit').className="v "+(p.profit<0?"neg":"");
+  $('r-profit-s').textContent=pct(p.margin)+" margin, after everyone is paid";
+  var rows=function(arr){return arr.map(function(r){return '<tr class="'+(r[2]||"")+'"><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>'}).join("")};
+  $('t-run').innerHTML=rows([
+    ["Band pays",money(p.charge)],
+    ["Materials ("+S.qty+" × "+L+")",money(-c.mat)],
+    ["Stylus wear + hardware payback",money(-c.wear)],
+    ["Mike's pay · "+c.mikeHr.toFixed(1)+" hrs",money(-c.mike)],
+    ["Josh's pay · "+c.joshHr.toFixed(1)+" hrs",money(-c.josh)],
+    ["Card fees",money(-p.fees)],
+    ["Profit",'<span class="'+(p.profit<0?"neg":"pos")+'">'+money(p.profit)+'</span>',"t"],
+    ["Mike's effective rate, pay + 40% of profit",money((c.mike+p.profit*(1-own))/c.mikeHr,1)+"/hr","sub"],
+    ["Josh's effective rate, pay + 60% of profit",money((c.josh+p.profit*own)/Math.max(.01,c.joshHr),1)+"/hr","sub"]]
+    .map(function(r,i){if(i>=7)r[0]=r[0].replace("40%",Math.round((1-own)*100)+"%").replace("60%",Math.round(own*100)+"%");return r}));
+  $('t-band').innerHTML=rows([
+    ["Band pays per record",money(p.each,1)],
+    ["Suggested merch price",money(p.merch)],
+    ["Band clears per record",'<span class="'+(p.bandProfit<0?"neg":"pos")+'">'+money(p.bandProfit,1)+'</span>'],
+    ["If all "+S.qty+" sell",money(p.bandProfit*S.qty),"t"],
+    ["Band breaks even after",p.breakeven+" records"],
+    ["Band's margin",pct(p.bandMargin)]]);
+  var runs=S.runs,mike=c.mike*runs,josh=c.josh*runs,biz=p.profit*runs-S.overhead;
+  $('t-month').innerHTML=rows([
+    [runs+" run"+(runs>1?"s":"")+" of "+S.qty+" × "+L,money(p.charge*runs)],
+    ["Profit before overhead",money(p.profit*runs)],
+    ["Overhead",money(-S.overhead)],
+    ["Business profit",'<span class="'+(biz<0?"neg":"pos")+'">'+money(biz)+'</span>',"t"],
+    ["Mike: job pay + "+Math.round((1-own)*100)+"% of profit",money(mike+Math.max(0,biz)*(1-own))],
+    ["Josh: job pay + "+Math.round(own*100)+"% of profit",money(josh+Math.max(0,biz)*own)],
+    ["Hours: Mike / Josh",(c.mikeHr*runs).toFixed(1)+" / "+(c.joshHr*runs).toFixed(1)]]);
+  var sheet=[["Setup fee per run",money(p.setup)]];
+  [10,20,25,50].forEach(function(q){var x=price(S.size,q);sheet.push([q+" "+L+" records",money(x.per)+" each · "+money(x.charge)])});
+  sheet.push(["Suggested merch price, 20 records",money(price(S.size,20).merch)]);
+  $('t-sheet').innerHTML=rows(sheet);
+  // flags
+  var f=[];
+  if(p.profit<0)f.push("This run loses money at these settings.");
+  if(S.mode==="payout"&&p.margin>0.45)f.push("Hitting "+money(S.payout)+"/month with "+runs+" run"+(runs>1?"s":"")+" needs a "+pct(p.margin)+" margin, well above the 25% target. Add runs or lower the goal.");
+  if(p.merch>(S.size==="10"?40:25))f.push("A "+money(p.merch)+" "+L+" is a premium price at a merch table. Expect it to sell as a collector or release-night record.");
+  $('flag').textContent=f.join(" ");
+  // all sizes table
+  var head='<thead><tr><th>Records</th><th>Setup</th><th>Per record</th><th>Band pays</th><th>Each</th><th>Our profit</th><th>Margin</th><th>Hours</th><th>Merch price</th><th>Band clears, all sold</th></tr></thead>';
+  var body=QTYS.map(function(q){var x=price(S.size,q);return '<tr data-q="'+q+'"'+(q===S.qty?' class="sel"':'')+'><td>'+q+' × '+L+'</td><td>'+money(x.setup)+'</td><td>'+money(x.per)+'</td><td>'+money(x.charge)+'</td><td>'+money(x.each,1)+'</td><td class="'+(x.profit<0?"neg":"")+'">'+money(x.profit)+'</td><td>'+pct(x.margin)+'</td><td>'+(x.c.mikeHr+x.c.joshHr).toFixed(1)+'</td><td>'+money(x.merch)+'</td><td>'+money(x.bandProfit*q)+'</td></tr>'}).join("");
+  $('t-all').innerHTML=head+'<tbody>'+body+'</tbody>';
+  $('t-all-sub').textContent=(S.mode==="payout"?"Goal: "+money(S.payout)+" business profit a month from "+runs+" run"+(runs>1?"s":""):"Goal: "+S.margin+"% margin on every run")+". Tap a row to select it.";
+}
+
+/* ---------- wire up ---------- */
+(function(){var b=$('dad-menu-btn'),m=$('dad-menu');function set(o){m.hidden=!o;b.setAttribute('aria-expanded',o?'true':'false')}
+b.addEventListener('click',function(e){e.stopPropagation();set(m.hidden)});
+document.addEventListener('click',function(e){if(!m.hidden&&!m.contains(e.target))set(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden){set(false);b.focus()}});})();
+(function(){
+  var ok=!/github\.io$/.test(location.hostname);try{ok=ok||!!localStorage.getItem(NDA_KEY)}catch(e){}
+  if(!ok){$('locked-out').hidden=false;return}
+  $('app').hidden=false;load();buildQtys();buildCosts();syncIn();render();
+  document.addEventListener('input',function(e){var t=e.target;
+    if(t.name==="mode"){S.mode=t.value}else if(t.name==="size"){S.size=t.value}else if(t.name==="qty"){S.qty=parseInt(t.value,10)}
+    else if(["payout","margin","runs","own","bandm"].indexOf(t.id)>-1){S[t.id]=num(t.value,S[t.id]);if(t.id==="runs")S.runs=Math.max(1,Math.round(S.runs))}
+    else if(t.dataset&&t.dataset.k){S[t.dataset.k]=num(t.value,S[t.dataset.k])}else return;
+    $('f-payout').hidden=S.mode!=="payout";$('f-margin').hidden=S.mode!=="margin";save();render()});
+  $('t-all').addEventListener('click',function(e){var tr=e.target.closest('tr[data-q]');if(!tr)return;S.qty=parseInt(tr.dataset.q,10);save();syncIn();render()});
+  $('reset').addEventListener('click',function(){var keep={mode:S.mode,payout:S.payout,margin:S.margin,runs:S.runs,own:S.own,bandm:S.bandm,size:S.size,qty:S.qty};
+    S=JSON.parse(JSON.stringify(DEFAULTS));for(var k in keep)S[k]=keep[k];save();syncIn();render()});
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>DAD Lathe Glossary</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Public+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a reference card index — search and section tabs on top, terms as index cards in two columns */
+:root{
+  --paper:#EEF0EC; --ink:#15181C; --muted:#5A6068; --rule:#C9CDC6; --groove:#E2E5DF; --card:#F7F8F5;
+  --accent:#2338B8; --accent-ink:#FFFFFF; --orange:#D55A22;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --gutL:max(24px,env(safe-area-inset-left,0px)); --gutR:max(24px,env(safe-area-inset-right,0px)); --padT:24px; --navH:58px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#111418; --ink:#E6E8E3; --muted:#9AA1A9; --rule:#2C3238; --groove:#1A1F24; --card:#171B20;
+  --accent:#8C9CFF; --accent-ink:#0E1220; --orange:#F0956A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111418; --ink:#E6E8E3; --muted:#9AA1A9; --rule:#2C3238; --groove:#1A1F24; --card:#171B20;
+  --accent:#8C9CFF; --accent-ink:#0E1220; --orange:#F0956A; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding-left:var(--gutL);padding-right:var(--gutR);padding-block:var(--padT) 48px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.dad-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--paper);border-bottom:1px solid var(--rule);
+  margin:calc(-1 * var(--padT)) calc(-1 * var(--gutR)) 0 calc(-1 * var(--gutL));padding:10px var(--gutR) 10px var(--gutL);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;height:var(--navH)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:16;background:var(--paper)}
+.dad-brand{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.06em;color:var(--ink);text-decoration:none}
+.dad-brand span{color:var(--orange)}
+.dad-menu-btn{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:transparent;border:2px solid var(--ink);padding:7px 12px;cursor:pointer}
+.dad-menu-btn:hover{font-weight:700}
+.dad-burger{display:inline-flex;flex-direction:column;gap:4px;width:18px}
+.dad-burger i{display:block;height:2px;background:var(--ink)}
+.dad-menu{position:absolute;top:100%;right:var(--gutR);width:min(340px,calc(100vw - var(--gutL) - var(--gutR)));max-height:calc(100vh - var(--navH) - 16px);overflow:auto;background:var(--paper);border:2px solid var(--ink);padding:16px 18px 18px;display:grid;gap:16px;box-shadow:0 10px 24px rgba(0,0,0,.14)}
+.dad-menu h5{margin:0 0 8px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dad-codes{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.dad-codes a{display:flex;align-items:center;justify-content:center;height:40px;border:1px solid var(--rule);font-family:var(--mono);font-size:14px;color:var(--ink);text-decoration:none}
+.dad-codes a:hover,.dad-codes a:focus-visible{border-color:var(--accent);color:var(--accent);font-weight:700}
+.dad-stack{display:grid;gap:8px}
+.dad-menu{gap:0;padding-top:6px}
+.dad-acc{border-bottom:1px solid var(--rule)}
+.dad-acc:last-of-type{border-bottom:0}
+.dad-acc>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;padding:12px 2px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dad-acc>summary::-webkit-details-marker{display:none}
+.dad-acc>summary b{font-weight:500;margin-left:auto;opacity:.7}
+.dad-acc>summary::after{content:"";flex:0 0 auto;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin:-5px 4px 0 6px;transition:transform .15s}
+.dad-acc[open]>summary::after{transform:rotate(-135deg);margin-top:3px}
+.dad-acc>summary:hover,.dad-acc[open]>summary{color:var(--ink)}
+.dad-acc>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dad-acc>.dad-stack,.dad-acc>.dad-codes,.dad-acc>.codes,.dad-acc>.rdl{margin-bottom:14px}
+.dad-menu .dad-note,.menu .dad-note{margin-top:12px}
+.dad-link{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--rule);color:var(--ink);text-decoration:none;font-weight:600}
+.dad-link:hover,.dad-link:focus-visible{border-color:var(--accent);color:var(--accent)}
+.dad-link span{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:400}
+.dad-link[aria-current="page"]{border-color:var(--ink);background:var(--groove)}
+
+.wrap{max-width:1080px;margin:0 auto;padding-top:36px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(48px,7vw,84px);line-height:.9;margin:10px 0 14px;text-transform:uppercase;border-top:10pt solid var(--orange);padding-top:14px}
+h1 span{color:var(--accent)}
+.lede{margin:0;max-width:64ch;color:var(--muted)}
+.tools{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--navH));z-index:5;background:var(--paper);padding:14px 0 12px;margin-top:20px;border-bottom:1px solid var(--rule);display:grid;gap:10px}
+.search{display:flex;gap:10px;align-items:center}
+.search input{flex:1;min-width:0;font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:2px solid var(--ink);border-radius:0;padding:10px 12px;height:46px}
+.search span{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.cats{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.cats::-webkit-scrollbar{display:none}
+.cats button{flex:none;font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;padding:8px 12px;border:2px solid var(--rule);background:transparent;color:var(--ink);cursor:pointer}
+.cats button:hover{font-weight:700;border-color:var(--ink)}
+.cats button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+h2{font-family:var(--display);font-weight:800;font-size:30px;text-transform:uppercase;margin:30px 0 12px;line-height:1}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.term{background:var(--card);border:1px solid var(--rule);border-top:3px solid var(--ink);padding:16px 18px;min-width:0}
+.term h3{margin:0;font-size:18px;line-height:1.3;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+.term .aka{font-family:var(--mono);font-size:12px;font-weight:400;color:var(--muted)}
+.term p{margin:6px 0 0;font-size:15px}
+.term .us{margin-top:10px;padding-top:8px;border-top:1px dashed var(--rule);font-size:14px;color:var(--muted)}
+.term .us b{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-right:6px}
+.ask{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--orange);border:1.5px dashed var(--orange);padding:1px 6px}
+.empty{color:var(--muted)}
+.sources{margin-top:40px;border-top:2px solid var(--ink);padding-top:12px;font-size:14px;color:var(--muted)}
+.sources a{color:var(--accent)}
+.sources ul{margin:6px 0 0;padding-left:18px}
+@media (max-width:760px){
+  :root{--gutL:max(15pt,env(safe-area-inset-left,0px));--gutR:max(15pt,env(safe-area-inset-right,0px));--padT:15pt}
+  .grid{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+
+</head>
+<body>
+<nav class="dad-nav" aria-label="Site">
+  <a class="dad-brand" href="../">DAD<span>RC</span></a>
+  <button class="dad-menu-btn" id="dad-menu-btn" type="button" aria-expanded="false" aria-controls="dad-menu"><span class="dad-burger" aria-hidden="true"><i></i><i></i><i></i></span>Menu</button>
+  <div class="dad-menu" id="dad-menu" hidden>
+    <details class="dad-acc" name="dadmenu"><summary>Plan sections<b>12</b></summary><div class="dad-codes"><a href="https://museumagency.github.io/DADRC/#a1">A1</a><a href="https://museumagency.github.io/DADRC/#a2">A2</a><a href="https://museumagency.github.io/DADRC/#a3">A3</a><a href="https://museumagency.github.io/DADRC/#a4">A4</a><a href="https://museumagency.github.io/DADRC/#a5">A5</a><a href="https://museumagency.github.io/DADRC/#a6">A6</a><a href="https://museumagency.github.io/DADRC/#b1">B1</a><a href="https://museumagency.github.io/DADRC/#b2">B2</a><a href="https://museumagency.github.io/DADRC/#b3">B3</a><a href="https://museumagency.github.io/DADRC/#b4">B4</a><a href="https://museumagency.github.io/DADRC/#b5">B5</a><a href="https://museumagency.github.io/DADRC/#b6">B6</a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Plan<b>5</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/CTrVngFvwUV1VsAYdCnhwJ">Roadmap <span>Shared checklist</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/decisions/">Decisions log <span>Locked, proposed, open</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/pricing/">Pricing model <span>Charge, payout, band price</span></a><a class="dad-link" href="https://claude.ai/artifact/Mz1GsSDMYY7fi9Ptd6HxAw">Meeting hub <span>Agendas, notes</span></a><a class="dad-link" href="https://claude.ai/artifact/KTAcR3dezMEUYpaARAn366">Quarterly review <span>Payouts, 60/40 check</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Sales<b>3</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/VWjkTmoZRBZHB57iMrtue7">Athens bands <span>Who to pitch</span></a><a class="dad-link" href="https://claude.ai/artifact/PEDVE8jiW7Tzb227VUp5nT">Venues & partners <span>Stores, venues, press</span></a><a class="dad-link" href="https://claude.ai/artifact/HGSo7QxRjmK2au2XEfD4jH">Events & markets <span>Booths and deadlines</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Operations<b>5</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/7f2UW7JtXupwPm7XcDXd2p">Order tracker <span>Shared board</span></a><a class="dad-link" href="https://claude.ai/artifact/BJjde8fQcEyLrwSB3DvmE7">Money ledger <span>Cash in, cash out</span></a><a class="dad-link" href="https://claude.ai/artifact/DGP4dC4Eja7mdYFeJM3Ptx">Hours log <span>Who put in what</span></a><a class="dad-link" href="https://claude.ai/artifact/5KdhuCopcqRWGBrj2dhJsZ">Hardware log <span>Parts, service, stylus</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/vendors/">Vendors <span>Prices, last checked</span></a></div></details>
+    <details class="dad-acc" name="dadmenu" open><summary>Resources<b>5</b></summary><div class="dad-stack"><a class="dad-link" href="https://museumagency.github.io/DADRC/templates/">Message templates <span>Copy, paste, send</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/brand/">Brand brief <span>Look, voice, designer brief</span></a><a class="dad-link" href="https://claude.ai/artifact/5Rn1xgM9nJAaeebW6pRjB2">Identity Concepts <span>Logos, scorecard</span></a><a class="dad-link" href="https://claude.ai/artifact/XCbwtdezjfjXZ9CMXP1EnV">Inspiration board <span>Mood board</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/glossary/" aria-current="page">Lathe glossary <span>You are here</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Band pages<b>3</b></summary><div class="dad-stack"><a class="dad-link" href="https://museumagency.github.io/DADRC/book/">Book a run <span>Band page</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/prices/">Prices <span>Band page</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/faq/">Band FAQ <span>Band page</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>R&amp;D<b>1</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/1bWi4weUuCLtZAFG6ZyT7E">Run Timer <span>Thursday dry run</span></a></div></details>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div class="eyebrow">DAD Record Cutters · Reference</div>
+  <h1>Lathe <span>glossary</span></h1>
+  <p class="lede">The words Mike uses at the lathe, in plain English, with what each one means for how we price, make and sell records. Terms marked <span class="ask">Ask Mike</span> depend on how his rig is set up.</p>
+  <div class="tools">
+    <div class="search"><input type="search" id="q" placeholder="Search terms, like pitch or swarf" aria-label="Search the glossary" autocomplete="off"><span id="count"></span></div>
+    <div class="cats" id="cats" role="group" aria-label="Filter by section"></div>
+  </div>
+  <div id="list"></div>
+  <div class="sources">
+    <strong>Sources</strong>
+    <ul>
+      <li><a href="https://womeninvinyl.com/resources/a-beginners-guide-to-lathe-cutting">A Beginner's Guide to Lathe Cutting</a>, Women in Vinyl / Spinner Town Blanks</li>
+      <li><a href="https://www.lathetrolls.com/viewtopic.php?p=3138">A Concise Tutorial</a>, Lathe Trolls forum</li>
+      <li><a href="https://lathecutvinylrecords.com/">Lathe Cut Vinyl Records</a>, production FAQ (Grand Rapids, MI)</li>
+      <li>Mike Dorsey, meeting notes, Oct 26, 2026</li>
+    </ul>
+  </div>
+</main>
+
+<script>
+var T=[
+ // The machine
+ {c:"The machine",t:"Lathe",a:"record cutting lathe",d:"The machine that cuts a groove into a spinning blank. A turntable spins the disc while a cutter head travels slowly from the outside edge toward the center.",u:"Mike built ours. It's DAD's main asset and the reason we can make runs of 10 instead of 300."},
+ {c:"The machine",t:"Cutter head",a:"cutterhead",d:"The part that turns the audio signal into motion. Coils and magnets drive the stylus so it traces the sound into the groove.",u:"Mono heads move the stylus one way; stereo heads move it in two directions at once. Mono or stereo is a selling point bands will ask about.",ask:true},
+ {c:"The machine",t:"Cutting stylus",a:"cutting tip",d:"The sharp tip, usually diamond or sapphire, that carves the groove. It's the only part of the lathe that touches the blank, and it wears down with use.",u:"Mike's cutting stylus costs about $200 and can be resharpened for about $50–70. How many sides it lasts sets a real cost per record."},
+ {c:"The machine",t:"Embossing stylus",d:"A rounded stylus that presses the groove into the plastic instead of carving it out. Cheaper and simpler, but usually noisier and lower fidelity.",u:"About $100. We sell cut records; embossing is only worth looking at as a cheaper tier."},
+ {c:"The machine",t:"Feed screw",a:"lead screw",d:"The threaded rod that moves the cutter head across the record as it spins. Its speed sets how close together the grooves are.",u:"Faster feed means fewer minutes fit on a side."},
+ {c:"The machine",t:"Stylus heat",a:"heated stylus",d:"Warming the stylus with a small heater coil so the material cuts more smoothly and quietly. Too much heat can soften the groove walls or damage the stylus.",u:"A heated cut can be noticeably quieter. Worth knowing whether Mike's rig uses heat.",ask:true},
+ {c:"The machine",t:"Suspension",d:"The counterweights, springs and damper that control how hard the cutter head presses into the blank and how it moves up and down.",u:"Part of why the first record of each run is cut and checked by hand."},
+ {c:"The machine",t:"Automation",a:"MIDI automation, the button",d:"Mike's setup that repeats a dialed-in cut at the press of a button after the first record is right.",u:"Why a run of 25 isn't 25 times the hands-on work. It's also the heart of Mike's patent direction for a self-contained cutting unit."},
+ // The blank
+ {c:"The blank",t:"Blank",d:"The flat, unrecorded disc that gets cut. Lathe blanks are made of plastics like PETG, polycarbonate or PVC, often around 2 mm thick to resist warping.",u:"Our biggest material cost. Prices run from about $2.25 to $3.50 each depending on size and pack."},
+ {c:"The blank",t:"Polycarbonate, PVC, PETG",d:"The plastics lathe blanks are made from. PETG is common in modern lathe cutting; polycarbonate is common for embossing; PVC is close to the material pressed records use.",u:"Which plastic Mike's rig cuts best decides where we buy blanks and what each record costs.",ask:true},
+ {c:"The blank",t:"Protective film",d:"A peel-off layer on each side of a new blank that keeps it clean and scratch-free until it's cut.",u:"Side B's film stays on while Side A is cut. Peeling it is one of the timed steps."},
+ {c:"The blank",t:"Antistatic rinse",d:"Cleaning the blank to remove dust and static before cutting, so dust doesn't get cut into the groove as noise.",u:"Done on every record. It costs a little time and a little cleaner each time."},
+ {c:"The blank",t:"Lacquer",d:"An aluminum disc coated in soft lacquer, used by mastering engineers to cut the master that pressing plants copy. Not something you play.",u:"Not our process. It's the first step of pressing, which is why pressing has big minimums."},
+ // The groove
+ {c:"The groove",t:"Swarf",a:"chip",d:"The thin thread of plastic the stylus removes as it cuts. A vacuum or brush pulls it away so it doesn't get caught under the stylus.",u:"Swarf means it's a real cut. Embossing makes none."},
+ {c:"The groove",t:"Pitch",a:"lines per inch",d:"How close together the grooves are, set by the feed screw. Tighter pitch fits more minutes on a side but leaves less room for loud, bassy sound.",u:"Why 10\" sides top out around 12 minutes and loud, bass-heavy masters may need shorter sides."},
+ {c:"The groove",t:"Variable pitch",d:"Automatically widening the spacing for loud passages and narrowing it for quiet ones, so more music fits without grooves running into each other.",u:"Pro mastering lathes do this. Simpler lathes use a fixed pitch.",ask:true},
+ {c:"The groove",t:"Groove depth",d:"How deep the stylus cuts. Usually judged by the groove's width under a microscope; around 50–70 microns is common for plastic blanks.",u:"Too shallow skips, too deep wastes space. Mike sets it on the first, hand-cut record."},
+ {c:"The groove",t:"Land",d:"The flat strip of blank left between two neighboring grooves.",u:"If loud bass pushes a groove into the land of the next one, the record can skip."},
+ {c:"The groove",t:"Lead-in and lead-out",a:"run-in, run-out",d:"The wide spiral at the start that guides the needle into the music, and the one at the end that carries it to the center.",u:"Part of every side's length, not just the songs."},
+ {c:"The groove",t:"Locked groove",d:"A closed loop at the end of the side so the needle circles in place instead of running into the label.",u:"Standard on finished records. Confirm Mike's lathe cuts one.",ask:true},
+ {c:"The groove",t:"Track bands",a:"visible gaps",d:"Wider spaces between songs that you can see on the record, so a listener can drop the needle on a song.",u:"Need a few seconds of silence between songs, and a PQ sheet if placement matters."},
+ {c:"The groove",t:"Run-out etching",a:"matrix",d:"Writing or numbers scratched into the blank area near the label.",u:"A cheap, personal touch for limited runs: numbered copies, a band message."},
+ // The sound
+ {c:"The sound",t:"Real-time cutting",d:"The record is cut while the music plays at normal speed, so a 12-minute side takes 12 minutes to cut.",u:"Cutting time is set by the music's length, not by how fast anyone works. It's the floor on how long a run takes."},
+ {c:"The sound",t:"33⅓ and 45 RPM",d:"The two common speeds. 45 RPM sounds better and louder but holds less time; 33⅓ fits more minutes per side.",u:"Bands with long EPs may need 33⅓ or a bigger record."},
+ {c:"The sound",t:"Mono and stereo cuts",d:"A mono cut carries one channel; a stereo cut carries left and right in the same groove using two directions of stylus motion.",u:"Many lathe services are mono only. Stereo is worth advertising if we cut it.",ask:true},
+ {c:"The sound",t:"Vinyl mastering",a:"premastering",d:"Preparing a finished mix for the lathe: setting the cutting level, controlling bass and harsh highs, and sequencing the side.",u:"About 3 hours of Mike's time per project. It's most of the setup fee."},
+ {c:"The sound",t:"Compilation mastering",d:"Mastering tracks from different artists or sessions one by one so they sound even side by side.",u:"Takes longer than one band's EP. That's why compilations carry a per-artist fee."},
+ {c:"The sound",t:"RIAA curve",a:"RIAA equalization",d:"The standard tone curve every record uses: bass is cut down and treble boosted when cutting, and the turntable's preamp reverses it on playback.",u:"Built into the cutting chain. It's why bass takes so much groove space."},
+ {c:"The sound",t:"Mono bass",a:"elliptical EQ",d:"Keeping the lowest bass the same in both speakers so the stylus doesn't have to jump up and down in the groove.",u:"Bass-heavy mixes may sound a little different on vinyl. Tell bands up front."},
+ {c:"The sound",t:"Sibilance and de-essing",d:"Harsh \"s\" and \"t\" sounds are hard to cut cleanly. A de-esser tames them during vinyl mastering.",u:"A common fix on vocal-heavy mixes."},
+ {c:"The sound",t:"Cutting level",d:"How loud the audio is cut into the groove. Louder sounds better against surface noise but takes more space and risks distortion or skipping.",u:"Longer sides force lower levels. Another reason runtime limits exist."},
+ {c:"The sound",t:"Headroom and clipping",d:"Headroom is the safety margin below the loudest level the lathe can physically cut. Clipping is distortion when audio goes past it.",u:"Over-compressed, very loud masters often have to be turned down for vinyl."},
+ {c:"The sound",t:"Inner groove distortion",d:"Sound quality drops toward the center of a record because the groove passes under the needle more slowly there.",u:"Put quieter, gentler songs last on each side."},
+ {c:"The sound",t:"Surface noise",d:"The background hiss and crackle from the material and the cut itself.",u:"Lathe cuts usually have more than pressed records. Set the expectation with bands."},
+ // The process
+ {c:"The process",t:"Lathe cut vs. pressed",d:"Lathe-cut records are cut one at a time from blanks. Pressed records are stamped from molds made from a lacquer master, which only pays off at hundreds of copies.",u:"Our pitch: no 300-copy minimum and no months-long wait. Never call what we do \"pressing.\""},
+ {c:"The process",t:"Dubplate",d:"A one-off cut record, a term from reggae and DJ culture. Some lathe services use it for any cut record.",u:"Good word for DJ and studio customers."},
+ {c:"The process",t:"First cut",a:"reference cut, test cut",d:"The first record of a run, cut by hand and listened to before the automation runs the rest.",u:"Mike's quality checkpoint. Its time is part of every job's setup."},
+ {c:"The process",t:"Side A / Side B program",d:"One continuous audio file per side, in playing order, with gaps between songs. One program means one set of identical copies.",u:"Different songs mean a different program and a new setup."},
+ {c:"The process",t:"PQ sheet",d:"A list of each track's start time and length on a side.",u:"Ask bands for one when song order or track bands matter."},
+ {c:"The process",t:"Runtime per side",d:"The most music that fits on one side at a given size, speed and loudness.",u:"Our working limits: about 6 minutes for 7\", 12 for 10\", 18 for 12\".",ask:true},
+ {c:"The process",t:"Spoilage",a:"bad cuts",d:"Records that come out wrong and get thrown away.",u:"Mike expects fewer than 1 in 25. The model budgets 4% until real runs prove it."},
+ // Packaging
+ {c:"Packaging",t:"Center label",d:"The printed paper circle in the middle of each side.",u:"Mike's process applies labels before cutting and printed labels after. If those are two labels, the cost doubles.",ask:true},
+ {c:"Packaging",t:"Inner sleeve",d:"The paper or plastic sleeve that holds the record inside the jacket.",u:"Included in every run."},
+ {c:"Packaging",t:"Jacket",d:"The printed cardboard cover.",u:"Our second-biggest material cost on 10\" runs, about $5–6 each."},
+ {c:"Packaging",t:"Shrink wrap",d:"Clear plastic sealed around the finished record for protection and a store-ready look.",u:"An optional finishing step at the end of the run."}
+];
+var MENU_CUR="glossary";
+(function(){var b=document.getElementById('dad-menu-btn'),m=document.getElementById('dad-menu');function set(o){m.hidden=!o;b.setAttribute('aria-expanded',o?'true':'false')}
+b.addEventListener('click',function(e){e.stopPropagation();set(m.hidden)});
+document.addEventListener('click',function(e){if(!m.hidden&&!m.contains(e.target))set(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden){set(false);b.focus()}});})();
+(function(){
+  var cats=[];T.forEach(function(x){if(cats.indexOf(x.c)<0)cats.push(x.c)});
+  var cur="All",q=document.getElementById('q'),list=document.getElementById('list'),catsEl=document.getElementById('cats');
+  ["All"].concat(cats).forEach(function(c){var b=document.createElement('button');b.type='button';b.textContent=c;b.setAttribute('aria-pressed',c===cur?'true':'false');
+    b.addEventListener('click',function(){cur=c;[].forEach.call(catsEl.children,function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});render()});catsEl.appendChild(b)});
+  q.addEventListener('input',render);
+  function el(t,cls,txt){var e=document.createElement(t);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+  function render(){var s=q.value.trim().toLowerCase();list.textContent="";var n=0;
+    cats.forEach(function(c){if(cur!=="All"&&cur!==c)return;
+      var rows=T.filter(function(x){return x.c===c&&(!s||(x.t+" "+(x.a||"")+" "+x.d+" "+x.u).toLowerCase().indexOf(s)>-1)}).sort(function(a,b){return a.t.localeCompare(b.t)});
+      if(!rows.length)return;list.appendChild(el('h2',null,c));var g=el('div','grid');
+      rows.forEach(function(x){n++;var card=el('article','term');var h=el('h3');h.appendChild(document.createTextNode(x.t));
+        if(x.a)h.appendChild(el('span','aka',x.a));if(x.ask)h.appendChild(el('span','ask','Ask Mike'));
+        card.appendChild(h);card.appendChild(el('p',null,x.d));var u=el('p','us');u.appendChild(el('b',null,'For DAD'));u.appendChild(document.createTextNode(x.u));card.appendChild(u);g.appendChild(card)});
+      list.appendChild(g)});
+    document.getElementById('count').textContent=n+" term"+(n===1?"":"s");
+    if(!n)list.appendChild(el('p','empty','No terms match. Try a shorter word.'))}
+  render();
+})();
+</script>
+
+</body>
+</html>

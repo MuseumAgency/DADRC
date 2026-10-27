@@ -8,12 +8,13 @@
 <meta property="og:site_name" content="DAD Record Cutters">
 <meta property="og:title" content="DAD Record Cutters">
 <meta property="og:description" content="A business plan for Mike Dorsey. Lathe-cut records, made in Athens, GA.">
-<meta property="og:image" content="share.jpg">
+<meta property="og:url" content="https://museumagency.github.io/DADRC/">
+<meta property="og:image" content="https://museumagency.github.io/DADRC/share.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The Museum LLC logo on black, beside the DAD Record Cutters name">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="share.jpg">
+<meta name="twitter:image" content="https://museumagency.github.io/DADRC/share.jpg">
 <style>
 :root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
@@ -58,8 +59,20 @@ nav.tracks{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background
 .menu-btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .burger{display:inline-flex;flex-direction:column;gap:4px;width:18px}
 .burger i{display:block;height:2px;background:var(--ink)}
-.menu{position:absolute;top:100%;right:var(--gutR);width:min(340px,calc(100vw - var(--gutL) - var(--gutR)));background:var(--paper);border:2px solid var(--ink);padding:16px 18px 18px;display:grid;gap:16px;box-shadow:0 10px 24px rgba(0,0,0,.12)}
+.menu{position:absolute;top:100%;right:var(--gutR);width:min(340px,calc(100vw - var(--gutL) - var(--gutR)));max-height:calc(100vh - 80px);overflow:auto;background:var(--paper);border:2px solid var(--ink);padding:16px 18px 18px;display:grid;gap:16px;box-shadow:0 10px 24px rgba(0,0,0,.12)}
 .menu h5{margin:0 0 8px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.menu{gap:0;padding-top:6px}
+.dad-acc{border-bottom:1px solid var(--rule)}
+.dad-acc:last-of-type{border-bottom:0}
+.dad-acc>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;padding:12px 2px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dad-acc>summary::-webkit-details-marker{display:none}
+.dad-acc>summary b{font-weight:500;margin-left:auto;opacity:.7}
+.dad-acc>summary::after{content:"";flex:0 0 auto;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin:-5px 4px 0 6px;transition:transform .15s}
+.dad-acc[open]>summary::after{transform:rotate(-135deg);margin-top:3px}
+.dad-acc>summary:hover,.dad-acc[open]>summary{color:var(--ink)}
+.dad-acc>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dad-acc>.dad-stack,.dad-acc>.dad-codes,.dad-acc>.codes,.dad-acc>.rdl{margin-bottom:14px}
+.dad-menu .dad-note,.menu .dad-note{margin-top:12px}
 .menu .codes{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
 .menu .codes a{display:flex;align-items:center;justify-content:center;height:40px;border:1px solid var(--rule);font-family:var(--mono);font-size:14px;color:var(--ink);text-decoration:none}
 .menu .codes a:hover,.menu .codes a:focus-visible{border-color:var(--accent);color:var(--accent);font-weight:700}
@@ -292,9 +305,13 @@ footer p{max-width:60ch;margin:0}
   <b class="brand">DAD<span>RC</span></b>
   <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>Menu</button>
   <div class="menu" id="menu" hidden>
-    <div><h5>Sections</h5><div class="codes"><a href="#a1">A1</a><a href="#a2">A2</a><a href="#a3">A3</a><a href="#a4">A4</a><a href="#a5">A5</a><a href="#a6">A6</a><a href="#b1">B1</a><a href="#b2">B2</a><a href="#b3">B3</a><a href="#b4">B4</a><a href="#b5">B5</a><a href="#b6">B6</a></div></div>
-    <div class="rd"><h5>Plan</h5><a href="https://claude.ai/artifact/CTrVngFvwUV1VsAYdCnhwJ" target="_blank" rel="noopener">Roadmap, Nov – Jan <span>Opens in a new tab</span></a></div>
-    <div class="rd"><h5>R&amp;D</h5><a href="https://claude.ai/artifact/1bWi4weUuCLtZAFG6ZyT7E" target="_blank" rel="noopener">Run Timer <span>Opens in a new tab</span></a></div>
+    <details class="dad-acc" name="dadmenu" open><summary>Sections<b>12</b></summary><div class="codes"><a href="#a1">A1</a><a href="#a2">A2</a><a href="#a3">A3</a><a href="#a4">A4</a><a href="#a5">A5</a><a href="#a6">A6</a><a href="#b1">B1</a><a href="#b2">B2</a><a href="#b3">B3</a><a href="#b4">B4</a><a href="#b5">B5</a><a href="#b6">B6</a></div></details>
+    <details class="dad-acc rd" name="dadmenu"><summary>Plan<b>5</b></summary><div class="rdl" style="display:grid;gap:8px"><a href="https://claude.ai/artifact/CTrVngFvwUV1VsAYdCnhwJ">Roadmap <span>Shared checklist</span></a><a href="https://museumagency.github.io/DADRC/decisions/">Decisions log <span>Locked, proposed, open</span></a><a href="https://museumagency.github.io/DADRC/pricing/">Pricing model <span>Charge, payout, band price</span></a><a href="https://claude.ai/artifact/Mz1GsSDMYY7fi9Ptd6HxAw">Meeting hub <span>Agendas, notes</span></a><a href="https://claude.ai/artifact/KTAcR3dezMEUYpaARAn366">Quarterly review <span>Payouts, 60/40 check</span></a></div></details>
+    <details class="dad-acc rd" name="dadmenu"><summary>Sales<b>3</b></summary><div class="rdl" style="display:grid;gap:8px"><a href="https://claude.ai/artifact/VWjkTmoZRBZHB57iMrtue7">Athens bands <span>Who to pitch</span></a><a href="https://claude.ai/artifact/PEDVE8jiW7Tzb227VUp5nT">Venues & partners <span>Stores, venues, press</span></a><a href="https://claude.ai/artifact/HGSo7QxRjmK2au2XEfD4jH">Events & markets <span>Booths and deadlines</span></a></div></details>
+    <details class="dad-acc rd" name="dadmenu"><summary>Operations<b>5</b></summary><div class="rdl" style="display:grid;gap:8px"><a href="https://claude.ai/artifact/7f2UW7JtXupwPm7XcDXd2p">Order tracker <span>Shared board</span></a><a href="https://claude.ai/artifact/BJjde8fQcEyLrwSB3DvmE7">Money ledger <span>Cash in, cash out</span></a><a href="https://claude.ai/artifact/DGP4dC4Eja7mdYFeJM3Ptx">Hours log <span>Who put in what</span></a><a href="https://claude.ai/artifact/5KdhuCopcqRWGBrj2dhJsZ">Hardware log <span>Parts, service, stylus</span></a><a href="https://museumagency.github.io/DADRC/vendors/">Vendors <span>Prices, last checked</span></a></div></details>
+    <details class="dad-acc rd" name="dadmenu"><summary>Resources<b>5</b></summary><div class="rdl" style="display:grid;gap:8px"><a href="https://museumagency.github.io/DADRC/templates/">Message templates <span>Copy, paste, send</span></a><a href="https://museumagency.github.io/DADRC/brand/">Brand brief <span>Look, voice, designer brief</span></a><a href="https://claude.ai/artifact/5Rn1xgM9nJAaeebW6pRjB2">Identity Concepts <span>Logos, scorecard</span></a><a href="https://claude.ai/artifact/XCbwtdezjfjXZ9CMXP1EnV">Inspiration board <span>Mood board</span></a><a href="https://museumagency.github.io/DADRC/glossary/">Lathe glossary <span>Terms, plain English</span></a></div></details>
+    <details class="dad-acc rd" name="dadmenu"><summary>Band pages<b>3</b></summary><div class="rdl" style="display:grid;gap:8px"><a href="https://museumagency.github.io/DADRC/book/">Book a run <span>Band page</span></a><a href="https://museumagency.github.io/DADRC/prices/">Prices <span>Band page</span></a><a href="https://museumagency.github.io/DADRC/faq/">Band FAQ <span>Band page</span></a></div></details>
+    <details class="dad-acc rd" name="dadmenu"><summary>R&amp;D<b>1</b></summary><div class="rdl" style="display:grid;gap:8px"><a href="https://claude.ai/artifact/1bWi4weUuCLtZAFG6ZyT7E">Run Timer <span>Thursday dry run</span></a></div></details>
   </div>
 </nav>
 

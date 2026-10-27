@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>DAD Decisions Log</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Public+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a ledger — one row per decision, status stamped in the margin, filters across the top */
+:root{
+  --paper:#EEF0EC; --ink:#15181C; --muted:#5A6068; --rule:#C9CDC6; --groove:#E2E5DF;
+  --accent:#2338B8; --accent-ink:#FFFFFF; --orange:#D55A22; --locked:#1E7A45; --locked-ink:#FFFFFF;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --gutL:max(24px,env(safe-area-inset-left,0px)); --gutR:max(24px,env(safe-area-inset-right,0px)); --padT:24px; --navH:58px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#111418; --ink:#E6E8E3; --muted:#9AA1A9; --rule:#2C3238; --groove:#1A1F24;
+  --accent:#8C9CFF; --accent-ink:#0E1220; --orange:#F0956A; --locked:#4FC184; --locked-ink:#0B1A11; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111418; --ink:#E6E8E3; --muted:#9AA1A9; --rule:#2C3238; --groove:#1A1F24;
+  --accent:#8C9CFF; --accent-ink:#0E1220; --orange:#F0956A; --locked:#4FC184; --locked-ink:#0B1A11; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding-left:var(--gutL);padding-right:var(--gutR);padding-block:var(--padT) 48px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.dad-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--paper);border-bottom:1px solid var(--rule);
+  margin:calc(-1 * var(--padT)) calc(-1 * var(--gutR)) 0 calc(-1 * var(--gutL));padding:10px var(--gutR) 10px var(--gutL);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;height:var(--navH)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:16;background:var(--paper)}
+.dad-brand{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.06em;color:var(--ink);text-decoration:none}
+.dad-brand span{color:var(--orange)}
+.dad-menu-btn{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:transparent;border:2px solid var(--ink);padding:7px 12px;cursor:pointer}
+.dad-menu-btn:hover{font-weight:700}
+.dad-burger{display:inline-flex;flex-direction:column;gap:4px;width:18px}
+.dad-burger i{display:block;height:2px;background:var(--ink)}
+.dad-menu{position:absolute;top:100%;right:var(--gutR);width:min(340px,calc(100vw - var(--gutL) - var(--gutR)));max-height:calc(100vh - var(--navH) - 16px);overflow:auto;background:var(--paper);border:2px solid var(--ink);padding:16px 18px 18px;display:grid;gap:16px;box-shadow:0 10px 24px rgba(0,0,0,.14)}
+.dad-menu h5{margin:0 0 8px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dad-codes{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.dad-codes a{display:flex;align-items:center;justify-content:center;height:40px;border:1px solid var(--rule);font-family:var(--mono);font-size:14px;color:var(--ink);text-decoration:none}
+.dad-codes a:hover,.dad-codes a:focus-visible{border-color:var(--accent);color:var(--accent);font-weight:700}
+.dad-stack{display:grid;gap:8px}
+.dad-menu{gap:0;padding-top:6px}
+.dad-acc{border-bottom:1px solid var(--rule)}
+.dad-acc:last-of-type{border-bottom:0}
+.dad-acc>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;padding:12px 2px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dad-acc>summary::-webkit-details-marker{display:none}
+.dad-acc>summary b{font-weight:500;margin-left:auto;opacity:.7}
+.dad-acc>summary::after{content:"";flex:0 0 auto;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin:-5px 4px 0 6px;transition:transform .15s}
+.dad-acc[open]>summary::after{transform:rotate(-135deg);margin-top:3px}
+.dad-acc>summary:hover,.dad-acc[open]>summary{color:var(--ink)}
+.dad-acc>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dad-acc>.dad-stack,.dad-acc>.dad-codes,.dad-acc>.codes,.dad-acc>.rdl{margin-bottom:14px}
+.dad-menu .dad-note,.menu .dad-note{margin-top:12px}
+.dad-link{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--rule);color:var(--ink);text-decoration:none;font-weight:600}
+.dad-link:hover,.dad-link:focus-visible{border-color:var(--accent);color:var(--accent)}
+.dad-link span{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:400}
+.dad-link[aria-current="page"]{border-color:var(--ink);background:var(--groove)}
+
+.wrap{max-width:980px;margin:0 auto;padding-top:36px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(48px,7vw,84px);line-height:.9;margin:10px 0 14px;text-transform:uppercase;border-top:10pt solid var(--orange);padding-top:14px}
+h1 span{color:var(--accent)}
+.lede{margin:0;max-width:62ch;color:var(--muted)}
+.counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:24px}
+.count{border-top:2px solid var(--ink);padding-top:8px}
+.count b{display:block;font-family:var(--display);font-weight:800;font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+.count span{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 6px}
+.filters button{font-family:var(--mono);font-size:13px;letter-spacing:.04em;text-transform:uppercase;padding:8px 14px;border:2px solid var(--rule);background:transparent;cursor:pointer;color:var(--ink)}
+.filters button:hover{font-weight:700;border-color:var(--ink)}
+.filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+
+h2{font-family:var(--display);font-weight:800;font-size:28px;text-transform:uppercase;margin:28px 0 0;line-height:1}
+.entry{display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px;padding:16px 0;border-bottom:1px solid var(--rule)}
+.side{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.date{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.pill{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border:1.5px solid var(--ink)}
+.pill.locked{background:var(--locked);border-color:var(--locked);color:var(--locked-ink)}
+.pill.proposed{border-color:var(--accent);color:var(--accent)}
+.pill.open{border-color:var(--orange);color:var(--orange);border-style:dashed}
+.entry h3{margin:0;font-size:17px;line-height:1.35}
+.entry p{margin:4px 0 0;font-size:15px;max-width:68ch}
+.entry .who{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:6px}
+.empty{color:var(--muted);padding:16px 0}
+.locked-out{max-width:560px;margin:60px auto;border:2px solid var(--ink);padding:28px;display:grid;gap:12px}
+.locked-out h2{margin:0}
+.locked-out a{color:var(--accent);font-weight:700}
+@media (max-width:760px){
+  :root{--gutL:max(15pt,env(safe-area-inset-left,0px));--gutR:max(15pt,env(safe-area-inset-right,0px));--padT:15pt}
+  .entry{grid-template-columns:minmax(0,1fr);gap:8px}
+  .side{flex-direction:row;align-items:center;gap:10px}
+  .count b{font-size:36px}
+}
+</style>
+
+</head>
+<body>
+<nav class="dad-nav" aria-label="Site">
+  <a class="dad-brand" href="../">DAD<span>RC</span></a>
+  <button class="dad-menu-btn" id="dad-menu-btn" type="button" aria-expanded="false" aria-controls="dad-menu"><span class="dad-burger" aria-hidden="true"><i></i><i></i><i></i></span>Menu</button>
+  <div class="dad-menu" id="dad-menu" hidden>
+    <details class="dad-acc" name="dadmenu"><summary>Plan sections<b>12</b></summary><div class="dad-codes"><a href="https://museumagency.github.io/DADRC/#a1">A1</a><a href="https://museumagency.github.io/DADRC/#a2">A2</a><a href="https://museumagency.github.io/DADRC/#a3">A3</a><a href="https://museumagency.github.io/DADRC/#a4">A4</a><a href="https://museumagency.github.io/DADRC/#a5">A5</a><a href="https://museumagency.github.io/DADRC/#a6">A6</a><a href="https://museumagency.github.io/DADRC/#b1">B1</a><a href="https://museumagency.github.io/DADRC/#b2">B2</a><a href="https://museumagency.github.io/DADRC/#b3">B3</a><a href="https://museumagency.github.io/DADRC/#b4">B4</a><a href="https://museumagency.github.io/DADRC/#b5">B5</a><a href="https://museumagency.github.io/DADRC/#b6">B6</a></div></details>
+    <details class="dad-acc" name="dadmenu" open><summary>Plan<b>5</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/CTrVngFvwUV1VsAYdCnhwJ">Roadmap <span>Shared checklist</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/decisions/" aria-current="page">Decisions log <span>You are here</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/pricing/">Pricing model <span>Charge, payout, band price</span></a><a class="dad-link" href="https://claude.ai/artifact/Mz1GsSDMYY7fi9Ptd6HxAw">Meeting hub <span>Agendas, notes</span></a><a class="dad-link" href="https://claude.ai/artifact/KTAcR3dezMEUYpaARAn366">Quarterly review <span>Payouts, 60/40 check</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Sales<b>3</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/VWjkTmoZRBZHB57iMrtue7">Athens bands <span>Who to pitch</span></a><a class="dad-link" href="https://claude.ai/artifact/PEDVE8jiW7Tzb227VUp5nT">Venues & partners <span>Stores, venues, press</span></a><a class="dad-link" href="https://claude.ai/artifact/HGSo7QxRjmK2au2XEfD4jH">Events & markets <span>Booths and deadlines</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Operations<b>5</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/7f2UW7JtXupwPm7XcDXd2p">Order tracker <span>Shared board</span></a><a class="dad-link" href="https://claude.ai/artifact/BJjde8fQcEyLrwSB3DvmE7">Money ledger <span>Cash in, cash out</span></a><a class="dad-link" href="https://claude.ai/artifact/DGP4dC4Eja7mdYFeJM3Ptx">Hours log <span>Who put in what</span></a><a class="dad-link" href="https://claude.ai/artifact/5KdhuCopcqRWGBrj2dhJsZ">Hardware log <span>Parts, service, stylus</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/vendors/">Vendors <span>Prices, last checked</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Resources<b>5</b></summary><div class="dad-stack"><a class="dad-link" href="https://museumagency.github.io/DADRC/templates/">Message templates <span>Copy, paste, send</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/brand/">Brand brief <span>Look, voice, designer brief</span></a><a class="dad-link" href="https://claude.ai/artifact/5Rn1xgM9nJAaeebW6pRjB2">Identity Concepts <span>Logos, scorecard</span></a><a class="dad-link" href="https://claude.ai/artifact/XCbwtdezjfjXZ9CMXP1EnV">Inspiration board <span>Mood board</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/glossary/">Lathe glossary <span>Terms, plain English</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Band pages<b>3</b></summary><div class="dad-stack"><a class="dad-link" href="https://museumagency.github.io/DADRC/book/">Book a run <span>Band page</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/prices/">Prices <span>Band page</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/faq/">Band FAQ <span>Band page</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>R&amp;D<b>1</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/1bWi4weUuCLtZAFG6ZyT7E">Run Timer <span>Thursday dry run</span></a></div></details>
+  </div>
+</nav>
+
+<main class="wrap" id="log" hidden>
+  <div class="eyebrow">DAD Record Cutters · Confidential</div>
+  <h1>Decisions <span>log</span></h1>
+  <p class="lede">Every number and term we've settled, proposed or still have to decide, with the date. Locked means agreed. Proposed means it's on the table for Thursday. Open means we need information first. Tell Claude when something changes and the log is updated.</p>
+  <div class="counts">
+    <div class="count"><b id="n-locked">0</b><span>Locked</span></div>
+    <div class="count"><b id="n-proposed">0</b><span>Proposed</span></div>
+    <div class="count"><b id="n-open">0</b><span>Open</span></div>
+  </div>
+  <div class="filters" role="group" aria-label="Filter by status">
+    <button type="button" data-f="all" aria-pressed="true">All</button>
+    <button type="button" data-f="locked" aria-pressed="false">Locked</button>
+    <button type="button" data-f="proposed" aria-pressed="false">Proposed</button>
+    <button type="button" data-f="open" aria-pressed="false">Open</button>
+  </div>
+  <div id="list"></div>
+</main>
+
+<div class="locked-out" id="locked-out" hidden>
+  <h2>Sign the agreement first</h2>
+  <p>This log is part of the confidential plan. Sign the confidentiality agreement on the plan page, then come back.</p>
+  <p><a href="../">Go to the plan and sign</a></p>
+</div>
+
+<script>
+var NDA_KEY="dadrc-nda-v1 2026-10-26";
+var LOG=[
+ {c:"Money",s:"locked",d:"2026-10-25",t:"Josh pays every upfront cost",x:"Production, marketing, creative, overhead and project management costs. Mike never puts cash in. Josh's money is logged as capital and repaid before profit is split.",w:"Josh"},
+ {c:"Money",s:"locked",d:"2026-10-25",t:"Josh's Design & Marketing rate: $54.08/hr",x:"Half Josh's standard rate. Applies to sales, client care and quality control hours on each job.",w:"Josh"},
+ {c:"Money",s:"proposed",d:"2026-10-25",t:"How money is paid out",x:"Monthly: each partner is paid for job hours. Quarterly: a cash reserve fills first, then capital is repaid (Josh's cash, Mike's $896 hardware), then profit is split by ownership.",w:"Proposed by Josh"},
+ {c:"Money",s:"proposed",d:"2026-10-25",t:"Job rates",x:"Mike: mastering $40/hr, cutting $30/hr, packing and shipping $18/hr. Josh: artwork and print design $40/hr. No rate below about $18/hr, the Athens living wage plus self-employment tax.",w:"Proposed by Josh"},
+ {c:"Money",s:"proposed",d:"2026-10-25",t:"Target margin: 25% on every price",x:"Profit after everyone is paid for their hours, card fees and materials.",w:"Proposed by Josh"},
+ {c:"Ownership",s:"proposed",d:"2026-10-25",t:"Ownership 60% Josh, 40% Mike",x:"With 4-year vesting and a 1-year cliff, unanimous consent to sell, borrow or add an owner, and buy-sell terms if either partner leaves. Drafted into the operating agreement by an attorney.",w:"Proposed by Josh"},
+ {c:"Ownership",s:"proposed",d:"2026-10-25",t:"Quarterly ownership review and runway injection",x:"Logged hours and contributions are reviewed each quarter. Josh adds cash each quarter as needed; it's logged as capital and repaid before profit is split.",w:"Proposed by Josh"},
+ {c:"Ownership",s:"locked",d:"2026-10-25",t:"Mike's R&D hours count toward ownership",x:"R&D hours aren't paid by the job. They're logged and counted at each ownership review. Includes time training Josh to cut.",w:"Josh"},
+ {c:"Ownership",s:"proposed",d:"2026-10-26",t:"Mike's original technology stays Mike's",x:"Patents and trademarks for Mike's original designs, including a self-contained cutting unit with MIDI automation, in Mike's name and licensed to DAD. Revenue share per license and per sale is set in the operating agreement.",w:"From the Oct 26 meeting"},
+ {c:"Roles",s:"locked",d:"2026-10-25",t:"Titles and roles",x:"Josh Patterson: CEO & Chief Brand Architect (growth strategy and funding, end-to-end experience, creative direction and execution, marketing and sales, bookkeeping and legality). Mike Dorsey: President & Record Craftsman (mastering and cutting, maintenance, production, R&D, shipping).",w:"Josh"},
+ {c:"Roles",s:"open",d:"2026-10-25",t:"Who has the final say on what",x:"Two top titles need the operating agreement to say who decides which kinds of questions.",w:"For the attorney"},
+ {c:"Product",s:"proposed",d:"2026-10-26",t:"Athens Starter: 20 × 10\" at $935 (working price)",x:"Mike's preferred starter size. $46.75 a record, at the 25% target margin. The final entry-level price is set from the Thursday dry run.",w:"Working number"},
+ {c:"Product",s:"open",d:"2026-10-26",t:"Final entry-level price for local bands",x:"Set after the Thursday dry run times every step of a 25 × 10\" run.",w:"After Oct 29"},
+ {c:"Product",s:"locked",d:"2026-10-26",t:"12\" records go into R&D, not on sale yet",x:"About 18 minutes a side. Priced after the test run and a 12\" jacket quote.",w:"Josh"},
+ {c:"Product",s:"open",d:"2026-10-26",t:"One label per side, or two?",x:"Mike's process applies a label before cutting and printed labels after. If those are different labels, label cost doubles.",w:"Ask Mike"},
+ {c:"Product",s:"open",d:"2026-10-26",t:"How long a cutting stylus lasts",x:"Mike: hundreds to thousands of sides. The model assumes 500 sides on a $200 stylus until real runs show more.",w:"Ask Mike"},
+ {c:"Money",s:"locked",d:"2026-10-26",t:"Deposit: 50% to book, balance before records leave",x:"The deposit holds the cutting date and pays for materials. Full refund until materials are ordered or mastering starts; after that, the deposit is kept. Balance is due at pickup or before shipping. A rush fee isn't refunded once work starts.",w:"Josh · on the FAQ and booking form"},
+ {c:"Money",s:"locked",d:"2026-10-26",t:"Approval, remakes and delays",x:"Nothing is cut or printed until the band approves the proof. Our mistakes and records damaged in shipping (photo within 7 days) are remade free. Changes after approval are billed at cost. If the band's audio or art is 30+ days late, the date moves; deposits on jobs with no response for 90 days are kept. If we miss the promised date by 7+ days, the band can cancel for a full refund.",w:"Josh · attorney to review"},
+ {c:"Money",s:"locked",d:"2026-10-26",t:"Payments through Square",x:"Square invoices for the deposit and the balance (card 3.3% + 30¢, bank transfer 1%), and the Square card reader at pickup and booths (2.6% + 10¢). The pricing model now assumes 3.3% + 60¢ per run. At that rate the $935 Starter lands at a 24.7% margin, just under the 25% target.",w:"Josh"},
+ {c:"Process",s:"locked",d:"2026-10-26",t:"Thursday Oct 29: dry run of 25 × 10\"",x:"Test, time and record cutting, packaging and shipping with mock data and no material waste. Times go in the Run Timer.",w:"Josh and Mike"},
+ {c:"Process",s:"locked",d:"2026-10-26",t:"The Second Hands test run comes after the price is set",x:"Run as a real client experience once the dry run data and financial structure are settled. Josh pays as the client.",w:"Josh"},
+ {c:"Business",s:"locked",d:"2026-10-26",t:"Sister ventures stay separate from DAD's 60/40",x:"Dorsey Recording, Wrathens Merchandising and Museum LLC each keep their own money and terms and send work to each other. Digitizing and analog restoration roll into DAD.",w:"Josh"},
+ {c:"Business",s:"proposed",d:"2026-10-25",t:"Partnerships, tier 1 first",x:"Nuçi's Space, an Athens Rock Lobsters theme single (cover or original), and Record Store Day 2027. AthFest 2027, UGA keepsakes and weddings come second.",w:"Proposed by Claude"},
+ {c:"Business",s:"open",d:"2026-10-26",t:"Is \"DAD Record Cutters\" available as an LLC name?",x:"Check the Georgia business name search before printing anything.",w:"Josh"},
+ {c:"Legal",s:"locked",d:"2026-10-26",t:"Confidentiality agreement v1",x:"Protects the plan, pricing, brand and concepts for Josh Patterson and Museum LLC. Carves out Mike's prior skills, his lathe designs and hardware, public information and independent work. Draft for attorney review.",w:"Josh"},
+ {c:"Brand",s:"locked",d:"2026-10-26",t:"Colors: blue stays the main color, orange marks the logo and dividers",x:"DADRC logo: DAD in black, RC in orange #D55A22.",w:"Josh"}
+];
+(function(){var b=document.getElementById('dad-menu-btn'),m=document.getElementById('dad-menu');
+function set(o){m.hidden=!o;b.setAttribute('aria-expanded',o?'true':'false')}
+b.addEventListener('click',function(e){e.stopPropagation();set(m.hidden)});
+document.addEventListener('click',function(e){if(!m.hidden&&!m.contains(e.target))set(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden){set(false);b.focus()}});})();
+(function(){
+  var signed=!/github\.io$/.test(location.hostname);try{signed=signed||!!localStorage.getItem(NDA_KEY)}catch(e){}
+  if(!signed){document.getElementById('locked-out').hidden=false;return}
+  document.getElementById('log').hidden=false;
+  var MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function fmt(iso){var p=iso.split("-");return MON[+p[1]-1]+" "+(+p[2])+", "+p[0]}
+  var LABEL={locked:"Locked",proposed:"Proposed",open:"Open"};
+  ["locked","proposed","open"].forEach(function(k){document.getElementById("n-"+k).textContent=LOG.filter(function(e){return e.s===k}).length});
+  var list=document.getElementById("list"),filter="all";
+  function render(){list.textContent="";var cats=[];LOG.forEach(function(e){if(cats.indexOf(e.c)<0)cats.push(e.c)});var any=false;
+    cats.forEach(function(c){var rows=LOG.filter(function(e){return e.c===c&&(filter==="all"||e.s===filter)});if(!rows.length)return;any=true;
+      var h=document.createElement("h2");h.textContent=c;list.appendChild(h);
+      rows.forEach(function(e){var r=document.createElement("article");r.className="entry";
+        var side=document.createElement("div");side.className="side";
+        var pill=document.createElement("span");pill.className="pill "+e.s;pill.textContent=LABEL[e.s];
+        var dt=document.createElement("span");dt.className="date";dt.textContent=fmt(e.d);side.appendChild(pill);side.appendChild(dt);
+        var body=document.createElement("div");var h3=document.createElement("h3");h3.textContent=e.t;var p=document.createElement("p");p.textContent=e.x;
+        var who=document.createElement("div");who.className="who";who.textContent=e.w;body.appendChild(h3);body.appendChild(p);body.appendChild(who);
+        r.appendChild(side);r.appendChild(body);list.appendChild(r)})});
+    if(!any){var em=document.createElement("p");em.className="empty";em.textContent="Nothing with this status yet.";list.appendChild(em)}}
+  document.querySelectorAll(".filters button").forEach(function(btn){btn.addEventListener("click",function(){filter=btn.dataset.f;
+    document.querySelectorAll(".filters button").forEach(function(x){x.setAttribute("aria-pressed",x===btn?"true":"false")});render()})});
+  render();
+})();
+</script>
+
+</body>
+</html>

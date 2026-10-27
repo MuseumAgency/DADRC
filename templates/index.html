@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>DAD Message Templates</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Public+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#EEF0EC; --ink:#15181C; --muted:#5A6068; --rule:#C9CDC6; --groove:#E2E5DF; --card:#F7F8F5;
+  --accent:#2338B8; --accent-ink:#FFFFFF; --orange:#D55A22; --ok:#1E7A45; --ok-ink:#FFFFFF; --bad:#B23A10;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --gutL:max(24px,env(safe-area-inset-left,0px)); --gutR:max(24px,env(safe-area-inset-right,0px)); --padT:24px; --navH:58px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#111418; --ink:#E6E8E3; --muted:#9AA1A9; --rule:#2C3238; --groove:#1A1F24; --card:#171B20;
+  --accent:#8C9CFF; --accent-ink:#0E1220; --orange:#F0956A; --ok:#4FC184; --ok-ink:#0B1A11; --bad:#F0956A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111418; --ink:#E6E8E3; --muted:#9AA1A9; --rule:#2C3238; --groove:#1A1F24; --card:#171B20;
+  --accent:#8C9CFF; --accent-ink:#0E1220; --orange:#F0956A; --ok:#4FC184; --ok-ink:#0B1A11; --bad:#F0956A; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding-left:var(--gutL);padding-right:var(--gutR);padding-block:var(--padT) 48px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button,input,select,textarea{font:inherit;color:inherit}
+.dad-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--paper);border-bottom:1px solid var(--rule);
+  margin:calc(-1 * var(--padT)) calc(-1 * var(--gutR)) 0 calc(-1 * var(--gutL));padding:10px var(--gutR) 10px var(--gutL);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;height:var(--navH)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:16;background:var(--paper)}
+.dad-brand{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.06em;color:var(--ink);text-decoration:none}
+.dad-brand span{color:var(--orange)}
+.dad-menu-btn{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:transparent;border:2px solid var(--ink);padding:7px 12px;cursor:pointer}
+.dad-menu-btn:hover{font-weight:700}
+.dad-burger{display:inline-flex;flex-direction:column;gap:4px;width:18px}
+.dad-burger i{display:block;height:2px;background:var(--ink)}
+.dad-menu{position:absolute;top:100%;right:var(--gutR);width:min(340px,calc(100vw - var(--gutL) - var(--gutR)));max-height:calc(100vh - var(--navH) - 16px);overflow:auto;background:var(--paper);border:2px solid var(--ink);padding:16px 18px 18px;display:grid;gap:16px;box-shadow:0 10px 24px rgba(0,0,0,.14)}
+.dad-menu h5{margin:0 0 8px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dad-codes{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.dad-codes a{display:flex;align-items:center;justify-content:center;height:40px;border:1px solid var(--rule);font-family:var(--mono);font-size:14px;color:var(--ink);text-decoration:none}
+.dad-codes a:hover,.dad-codes a:focus-visible{border-color:var(--accent);color:var(--accent);font-weight:700}
+.dad-stack{display:grid;gap:8px}
+.dad-menu{gap:0;padding-top:6px}
+.dad-acc{border-bottom:1px solid var(--rule)}
+.dad-acc:last-of-type{border-bottom:0}
+.dad-acc>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;padding:12px 2px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dad-acc>summary::-webkit-details-marker{display:none}
+.dad-acc>summary b{font-weight:500;margin-left:auto;opacity:.7}
+.dad-acc>summary::after{content:"";flex:0 0 auto;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin:-5px 4px 0 6px;transition:transform .15s}
+.dad-acc[open]>summary::after{transform:rotate(-135deg);margin-top:3px}
+.dad-acc>summary:hover,.dad-acc[open]>summary{color:var(--ink)}
+.dad-acc>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dad-acc>.dad-stack,.dad-acc>.dad-codes,.dad-acc>.codes,.dad-acc>.rdl{margin-bottom:14px}
+.dad-menu .dad-note,.menu .dad-note{margin-top:12px}
+.dad-link{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--rule);color:var(--ink);text-decoration:none;font-weight:600}
+a.dad-link:hover,a.dad-link:focus-visible{border-color:var(--accent);color:var(--accent)}
+.dad-link span{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:400}
+.dad-link[aria-current="page"]{border-color:var(--ink);background:var(--groove)}
+.dad-note{margin:0;font-size:12px;color:var(--muted)}
+.dad-contact{display:grid;gap:4px;font-family:var(--mono);font-size:14px}
+.dad-contact span{user-select:all}
+.wrap{max-width:1180px;margin:0 auto;padding-top:32px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(46px,6.5vw,80px);line-height:.9;margin:10px 0 12px;text-transform:uppercase;border-top:10pt solid var(--orange);padding-top:14px;text-wrap:balance}
+h1 span{color:var(--accent)}
+.lede{margin:0;max-width:66ch;color:var(--muted)}
+.status{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:8px}
+.status.warn{color:var(--orange)}
+.draft{border:2px dashed var(--orange);color:var(--orange);padding:10px 14px;font-family:var(--mono);font-size:13px;margin-top:20px}
+.locked-out{max-width:560px;margin:60px auto;border:2px solid var(--ink);padding:28px;display:grid;gap:12px}
+.locked-out h2{margin:0;font-family:var(--display);text-transform:uppercase}
+.locked-out a{color:var(--accent);font-weight:700}
+.band{background:#000;color:#fff;margin:56px calc(-1 * var(--gutR)) -48px calc(-1 * var(--gutL));padding:24px var(--gutR) calc(24px + env(safe-area-inset-bottom,0px)) var(--gutL)}
+.band p{max-width:1180px;margin:0 auto;font-family:var(--mono);font-size:13px;color:#fff}
+@media (max-width:760px){:root{--gutL:max(15pt,env(safe-area-inset-left,0px));--gutR:max(15pt,env(safe-area-inset-right,0px));--padT:15pt}}
+/* Layout: fill-in card pinned on the left, the stack of ready-to-copy messages on the right */
+.tl{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:28px;margin-top:26px;align-items:start}
+.fill{border:2px solid var(--ink);background:var(--card);padding:18px;display:grid;gap:12px;position:sticky;top:calc(var(--navH) + 16px);max-height:calc(100vh - var(--navH) - 32px);overflow:auto}
+.fill h2,.msgs h2{margin:0;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.fill label{display:grid;gap:4px;font-size:13px;font-weight:600}
+.fill input,.fill select{height:40px;border:2px solid var(--ink);background:var(--paper);padding:0 10px;font-size:15px;width:100%;min-width:0;border-radius:0;font-weight:400}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.calc{font-family:var(--mono);font-size:13px;border-top:1px solid var(--rule);padding-top:10px;display:grid;gap:4px}
+.calc b{font-weight:500;color:var(--accent)}
+.reset{font-family:var(--mono);font-size:11px;border:0;background:transparent;color:var(--muted);text-decoration:underline;cursor:pointer;justify-self:start;padding:0}
+.chan{display:flex;gap:0;border:2px solid var(--ink);width:max-content}
+.chan button{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;padding:8px 14px;border:0;background:transparent;cursor:pointer}
+.chan button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.msgs{display:grid;gap:16px;min-width:0}
+.mhead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump a{font-family:var(--mono);font-size:11px;padding:4px 8px;border:1px solid var(--rule);color:var(--ink);text-decoration:none}
+.jump a:hover{border-color:var(--accent);color:var(--accent);font-weight:700}
+article{border:2px solid var(--rule);background:var(--card);padding:16px 18px;display:grid;gap:10px;scroll-margin-top:calc(var(--navH) + 16px)}
+article h3{margin:0;font-family:var(--display);font-weight:800;font-size:24px;text-transform:uppercase;line-height:1}
+article .when{margin:0;font-size:13px;color:var(--muted)}
+.subj{font-family:var(--mono);font-size:13px;border-left:4px solid var(--accent);padding:4px 10px;background:var(--paper)}
+.body{white-space:pre-wrap;font-size:15px;background:var(--paper);border:1px solid var(--rule);padding:12px 14px;margin:0;font-family:var(--body);overflow-wrap:anywhere}
+.body mark{background:transparent;color:var(--orange);font-weight:700}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.cp{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;padding:8px 12px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer}
+.cp.alt{background:transparent;color:var(--accent)}
+.cp:hover{font-weight:700}
+.miss{font-size:12px;color:var(--orange);font-family:var(--mono)}
+@media (max-width:900px){.tl{grid-template-columns:minmax(0,1fr)}.fill{position:static;max-height:none}}
+</style>
+
+</head>
+<body>
+<nav class="dad-nav" aria-label="Site">
+  <a class="dad-brand" href="../">DAD<span>RC</span></a>
+  <button class="dad-menu-btn" id="dad-menu-btn" type="button" aria-expanded="false" aria-controls="dad-menu"><span class="dad-burger" aria-hidden="true"><i></i><i></i><i></i></span>Menu</button>
+  <div class="dad-menu" id="dad-menu" hidden>
+    <details class="dad-acc" name="dadmenu"><summary>Plan sections<b>12</b></summary><div class="dad-codes"><a href="https://museumagency.github.io/DADRC/#a1">A1</a><a href="https://museumagency.github.io/DADRC/#a2">A2</a><a href="https://museumagency.github.io/DADRC/#a3">A3</a><a href="https://museumagency.github.io/DADRC/#a4">A4</a><a href="https://museumagency.github.io/DADRC/#a5">A5</a><a href="https://museumagency.github.io/DADRC/#a6">A6</a><a href="https://museumagency.github.io/DADRC/#b1">B1</a><a href="https://museumagency.github.io/DADRC/#b2">B2</a><a href="https://museumagency.github.io/DADRC/#b3">B3</a><a href="https://museumagency.github.io/DADRC/#b4">B4</a><a href="https://museumagency.github.io/DADRC/#b5">B5</a><a href="https://museumagency.github.io/DADRC/#b6">B6</a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Plan<b>5</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/CTrVngFvwUV1VsAYdCnhwJ">Roadmap <span>Shared checklist</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/decisions/">Decisions log <span>Locked, proposed, open</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/pricing/">Pricing model <span>Charge, payout, band price</span></a><a class="dad-link" href="https://claude.ai/artifact/Mz1GsSDMYY7fi9Ptd6HxAw">Meeting hub <span>Agendas, notes</span></a><a class="dad-link" href="https://claude.ai/artifact/KTAcR3dezMEUYpaARAn366">Quarterly review <span>Payouts, 60/40 check</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Sales<b>3</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/VWjkTmoZRBZHB57iMrtue7">Athens bands <span>Who to pitch</span></a><a class="dad-link" href="https://claude.ai/artifact/PEDVE8jiW7Tzb227VUp5nT">Venues & partners <span>Stores, venues, press</span></a><a class="dad-link" href="https://claude.ai/artifact/HGSo7QxRjmK2au2XEfD4jH">Events & markets <span>Booths and deadlines</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Operations<b>5</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/7f2UW7JtXupwPm7XcDXd2p">Order tracker <span>Shared board</span></a><a class="dad-link" href="https://claude.ai/artifact/BJjde8fQcEyLrwSB3DvmE7">Money ledger <span>Cash in, cash out</span></a><a class="dad-link" href="https://claude.ai/artifact/DGP4dC4Eja7mdYFeJM3Ptx">Hours log <span>Who put in what</span></a><a class="dad-link" href="https://claude.ai/artifact/5KdhuCopcqRWGBrj2dhJsZ">Hardware log <span>Parts, service, stylus</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/vendors/">Vendors <span>Prices, last checked</span></a></div></details>
+    <details class="dad-acc" name="dadmenu" open><summary>Resources<b>5</b></summary><div class="dad-stack"><a class="dad-link" href="https://museumagency.github.io/DADRC/templates/" aria-current="page">Message templates <span>You are here</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/brand/">Brand brief <span>Look, voice, designer brief</span></a><a class="dad-link" href="https://claude.ai/artifact/5Rn1xgM9nJAaeebW6pRjB2">Identity Concepts <span>Logos, scorecard</span></a><a class="dad-link" href="https://claude.ai/artifact/XCbwtdezjfjXZ9CMXP1EnV">Inspiration board <span>Mood board</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/glossary/">Lathe glossary <span>Terms, plain English</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>Band pages<b>3</b></summary><div class="dad-stack"><a class="dad-link" href="https://museumagency.github.io/DADRC/book/">Book a run <span>Band page</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/prices/">Prices <span>Band page</span></a><a class="dad-link" href="https://museumagency.github.io/DADRC/faq/">Band FAQ <span>Band page</span></a></div></details>
+    <details class="dad-acc" name="dadmenu"><summary>R&amp;D<b>1</b></summary><div class="dad-stack"><a class="dad-link" href="https://claude.ai/artifact/1bWi4weUuCLtZAFG6ZyT7E">Run Timer <span>Thursday dry run</span></a></div></details>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div class="eyebrow">DAD Record Cutters · Resources · Internal</div>
+  <h1>Message <span>templates</span></h1>
+  <p class="lede">Fill in the job once and every message updates. Copy the email or the text version, paste it, read it once, send. Anything still in <span style="color:var(--orange);font-weight:700">[orange brackets]</span> is missing.</p>
+  <div class="tl">
+    <form class="fill" id="fill" autocomplete="off">
+      <h2>This job</h2>
+      <label>Band or artist<input name="band" placeholder="The Second Hands"></label>
+      <label>Contact's first name<input name="first" placeholder="Sam"></label>
+      <div class="two">
+        <label>Size<select name="size"><option value='10"'>10"</option><option value='7"'>7"</option></select></label>
+        <label>Records<input name="qty" type="number" min="1" step="1" placeholder="20"></label>
+      </div>
+      <div class="two">
+        <label>Total price ($)<input name="price" type="number" min="0" step="1" placeholder="935"></label>
+        <label>Deposit ($)<input name="deposit" type="number" min="0" step="1" placeholder="Not set yet"></label>
+      </div>
+      <label>Ready by<input name="date" type="date"></label>
+      <label>Pickup spot<input name="pickup" placeholder="Athens, address on request"></label>
+      <label>Tracking number<input name="tracking" placeholder="Only for shipped orders"></label>
+      <div class="calc" id="calc"></div>
+      <button class="reset" type="button" id="reset">Clear the job</button>
+    </form>
+    <section class="msgs" aria-label="Messages">
+      <div class="mhead">
+        <div class="chan" role="group" aria-label="Version"><button type="button" data-c="email" aria-pressed="true">Email</button><button type="button" data-c="text" aria-pressed="false">Text</button></div>
+        <nav class="jump" id="jump" aria-label="Jump to a message"></nav>
+      </div>
+      <div id="list" style="display:grid;gap:16px"></div>
+    </section>
+  </div>
+</main>
+
+<script>
+(function(){var b=document.getElementById('dad-menu-btn'),m=document.getElementById('dad-menu');function set(o){m.hidden=!o;b.setAttribute('aria-expanded',o?'true':'false')}
+b.addEventListener('click',function(e){e.stopPropagation();set(m.hidden)});
+document.addEventListener('click',function(e){if(!m.hidden&&!m.contains(e.target))set(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden){set(false);b.focus()}});})();
+var KEY="dadrc-templates-job";
+var SIGN="Josh\nDAD Record Cutters\njosh@museum-llc.com · 770.212.0732";
+var T=[
+ {id:"inquiry",n:"Inquiry reply",w:"Someone asked about records and you haven't quoted yet.",
+  s:"Records for {band}",
+  e:"Hi {first},\n\nThanks for reaching out about records for {band}. We cut every record one at a time on a lathe here in Athens, so short runs like 10, 20 or 50 copies are what we do best.\n\nTo put a quote together I need three things:\n1. 7\" or 10\"?\n2. How many copies?\n3. When do you need them in hand?\n\nOur price sheet is here if you want a head start: https://museumagency.github.io/DADRC/prices/\n\n{sign}",
+  t:"Hi {first}, it's Josh from DAD Record Cutters. Thanks for asking about records for {band}! 7\" or 10\", how many, and when do you need them? Prices: https://museumagency.github.io/DADRC/prices/"},
+ {id:"quote",n:"Quote",w:"You know the size and count and have a price.",
+  s:"Your quote: {qty} × {size} records for {band}",
+  e:"Hi {first},\n\nHere's the quote for {band}:\n\n{qty} × {size} lathe-cut records: ${price}\nDeposit to book your spot: ${deposit}\nBalance at pickup: ${balance}\nReady by: {date}\n\nEach record is cut in real time, so every copy is made by hand and checked before it goes out.\n\nIf this works, reply and I'll send a Square invoice for the deposit (pay by card or bank transfer), plus what we need from you: audio and artwork.\n\n{sign}",
+  t:"Hi {first}, quote for {band}: {qty} × {size} records, ${price} total. ${deposit} deposit books it, ${balance} at pickup, ready by {date}. Want me to lock it in?"},
+ {id:"booked",n:"Deposit received, booked",w:"The deposit landed.",
+  s:"You're booked: {band} records",
+  e:"Hi {first},\n\nGot your ${deposit} deposit. Thank you! {band} is on the schedule for {qty} × {size} records, ready by {date}.\n\nBalance due at pickup: ${balance}.\n\nNext I'll need your audio and artwork. Details are coming in a separate email so they're easy to find later.\n\n{sign}",
+  t:"Got your ${deposit} deposit, thank you! {band} is booked: {qty} × {size}, ready by {date}. Audio and artwork details coming by email."},
+ {id:"assets",n:"Audio and artwork request",w:"Right after booking.",
+  s:"What we need from {band}: audio and artwork",
+  e:"Hi {first},\n\nHere's what we need to start cutting:\n\nAudio\n- WAV files, 24-bit or 16-bit, 44.1 kHz or higher. No MP3s.\n- One file per side, or one file per song with the running order for each side.\n- Keep each side within the time limit we discussed for {size}. If you're close, tell me and we'll talk it through.\n\nArtwork\n- Labels and jacket art as PDF or 300 dpi PNG.\n- I'll send exact sizes and a template if you need one.\n\nA shared folder link (Google Drive, Dropbox) works best. Once everything's in, I'll send a proof to approve before we make the run.\n\n{sign}",
+  t:"Hi {first}, to start your {size} records I need WAVs (no MP3s), one per side or per song with the order, plus label and jacket art as PDF or 300 dpi PNG. A Drive or Dropbox link is easiest."},
+ {id:"proof",n:"Artwork proof approval",w:"You've laid out the labels and jacket and need a yes.",
+  s:"Proof to approve: {band} labels and jacket",
+  e:"Hi {first},\n\nAttached is the proof for the {band} labels and jacket. Please check:\n\n- Spelling of every name and song title\n- Which side is A and which is B\n- Colors (screens show color a little differently than print)\n\nReply \"approved\" and we'll start the run, or send changes and I'll turn a new proof around.\n\nNothing gets cut or printed until you approve.\n\n{sign}",
+  t:"Hi {first}, the {band} proof is in your email. Check names, titles and sides, then reply \"approved\" and we'll start the run."},
+ {id:"ready",n:"Ready for pickup",w:"The run is done and checked.",
+  s:"{band} records are ready",
+  e:"Hi {first},\n\nYour {qty} {size} records are done and checked. They sound great.\n\nPickup: {pickup}\nBalance due: ${balance}\n\nYou can pay the balance through the Square invoice I'll send, or by card at pickup. Reply with a day and time that works and I'll make sure someone's here.\n\n{sign}",
+  t:"Hi {first}! Your {qty} {size} records are ready. Pickup at {pickup}, balance ${balance}. What day works?"},
+ {id:"shipped",n:"Shipped",w:"The order went out in the mail.",
+  s:"{band} records shipped",
+  e:"Hi {first},\n\nYour {qty} {size} records are on the way.\n\nTracking: {tracking}\n\nRecords are packed flat with stiffeners. If anything shows up damaged, send a photo of the box and the record and we'll sort it out.\n\n{sign}",
+  t:"Hi {first}, your {band} records shipped! Tracking: {tracking}"},
+ {id:"balance",n:"Balance reminder",w:"Pickup or shipping is waiting on payment.",
+  s:"Balance for {band} records",
+  e:"Hi {first},\n\nQuick reminder: there's a ${balance} balance on the {band} records. You can pay it through the Square invoice in your email, by card or bank transfer. Once it's paid I'll {handoff}.\n\nIf something's come up, reply and we'll work out timing.\n\n{sign}",
+  t:"Hi {first}, quick reminder about the ${balance} balance on the {band} records. Once that's in I'll {handoff}."},
+ {id:"review",n:"Testimonial request",w:"About a week after they have the records.",
+  s:"How did the {band} records turn out?",
+  e:"Hi {first},\n\nHope the records are getting played. How did they turn out?\n\nIf you're happy with them, a couple of sentences we can quote on our site would help a lot. A photo of the records at a show or on the merch table is even better.\n\nAnd if anything wasn't right, tell me that too.\n\n{sign}",
+  t:"Hi {first}, how are the {band} records? If you're happy, a sentence or two we can quote (or a merch table photo) would mean a lot."},
+ {id:"nudge",n:"No-response follow-up",w:"A quote or question has gone quiet for about a week.",
+  s:"Still thinking about records for {band}?",
+  e:"Hi {first},\n\nChecking in on the {band} records. No pressure. If the timing or the number isn't right, tell me what would work and I'll see what we can do.\n\nIf you've gone another way, a quick \"no thanks\" helps me keep the schedule straight.\n\n{sign}",
+  t:"Hi {first}, checking in on the {band} records. Still interested? Happy to adjust the count or timing."}
+];
+var MON=["January","February","March","April","May","June","July","August","September","October","November","December"];
+var job={},chan="email";
+function $(id){return document.getElementById(id)}
+function el(t,cls,txt){var e=document.createElement(t);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function money(n){return Math.round(n).toLocaleString("en-US")}
+function vals(){var v={};var p=parseFloat(job.price),d=parseFloat(job.deposit);
+  v.band=job.band;v.first=job.first;v.size=job.size||'10"';v.qty=job.qty;v.pickup=job.pickup;v.tracking=job.tracking;
+  v.price=isFinite(p)?money(p):"";v.deposit=isFinite(d)?money(d):"";v.balance=(isFinite(p)&&isFinite(d))?money(p-d):(isFinite(p)&&!job.deposit?money(p):"");
+  if(job.date){var x=job.date.split("-");v.date=MON[+x[1]-1]+" "+(+x[2])}else v.date="";
+  v.handoff=job.tracking?"ship them":"set up pickup";v.sign=SIGN;return v}
+var LBL={band:"band",first:"name",size:"size",qty:"count",price:"price",deposit:"deposit",balance:"balance",date:"date",pickup:"pickup spot",tracking:"tracking"};
+function fill(str,v,html){var miss=[];var out=str.replace(/\{(\w+)\}/g,function(_,k){var val=v[k];if(val===undefined||val===""){miss.push(LBL[k]||k);return html?"\u0001"+(LBL[k]||k)+"\u0002":"["+(LBL[k]||k)+"]"}return val});return {text:out,miss:miss}}
+function toNodes(pre,text){pre.textContent="";text.split(/(\u0001[^\u0002]*\u0002)/).forEach(function(s){if(s.charAt(0)==="\u0001"){pre.appendChild(el('mark',null,"["+s.slice(1,-1)+"]"))}else if(s)pre.appendChild(document.createTextNode(s))})}
+function copy(txt,btn){var done=function(){var o=btn.textContent;btn.textContent="Copied";setTimeout(function(){btn.textContent=o},1400)};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,function(){fallback(txt);done()})}else{fallback(txt);done()}}
+function fallback(txt){var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(ta)}
+function render(){var v=vals();var L=$('list');L.textContent="";
+  var c=$('calc');c.textContent="";
+  [["Balance at pickup",v.balance?"$"+v.balance:"—"],["Deposit share",(v.price&&v.deposit)?Math.round(parseFloat(job.deposit)/parseFloat(job.price)*100)+"% of total":(v.price?"Proposed 50%: $"+money(Math.ceil(parseFloat(job.price)/2/5)*5):"—")]].forEach(function(r){var d=el('div');d.appendChild(document.createTextNode(r[0]+": "));d.appendChild(el('b',null,r[1]));c.appendChild(d)});
+  T.forEach(function(t){var a=el('article');a.id=t.id;a.appendChild(el('h3',null,t.n));a.appendChild(el('p','when',t.w));
+    var body,subj=null,miss=[];
+    if(chan==="email"){var fs=fill(t.s,v,false);subj=fs.text;var sd=el('div','subj');sd.appendChild(document.createTextNode("Subject: "));var fsh=fill(t.s,v,true);var sp=el('span');toNodes(sp,fsh.text);sd.appendChild(sp);a.appendChild(sd);miss=miss.concat(fs.miss)}
+    var src=chan==="email"?t.e:t.t;var fb=fill(src,v,false);body=fb.text;miss=miss.concat(fb.miss);
+    var pre=el('div','body');toNodes(pre,fill(src,v,true).text);a.appendChild(pre);
+    var row=el('div','row');var b1=el('button','cp',chan==="email"?"Copy email":"Copy text");b1.type='button';b1.addEventListener('click',function(){copy(body,b1)});row.appendChild(b1);
+    if(subj!==null){var b2=el('button','cp alt','Copy subject');b2.type='button';b2.addEventListener('click',function(){copy(subj,b2)});row.appendChild(b2)}
+    a.appendChild(row);
+    var um=miss.filter(function(m,i){return miss.indexOf(m)===i});if(um.length)a.appendChild(el('div','miss','Missing: '+um.join(', ')));
+    L.appendChild(a)})}
+(function(){
+  try{job=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){job={}}
+  var f=$('fill');[].forEach.call(f.elements,function(i){if(i.name&&job[i.name]!=null)i.value=job[i.name]});
+  f.addEventListener('input',function(e){if(!e.target.name)return;job[e.target.name]=e.target.value;try{localStorage.setItem(KEY,JSON.stringify(job))}catch(x){}render()});
+  f.addEventListener('submit',function(e){e.preventDefault()});
+  $('reset').addEventListener('click',function(){job={};try{localStorage.removeItem(KEY)}catch(x){}f.reset();render()});
+  var J=$('jump');T.forEach(function(t){var a=el('a',null,t.n);a.href='#'+t.id;J.appendChild(a)});
+  [].forEach.call(document.querySelectorAll('.chan button'),function(b){b.addEventListener('click',function(){chan=b.dataset.c;[].forEach.call(document.querySelectorAll('.chan button'),function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});render()})});
+  render();
+})();
+</script>
+
+</body>
+</html>

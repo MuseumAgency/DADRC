@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Book a lathe-cut record run with DAD Record Cutters in Athens, GA.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DAD Record Cutters">
+<meta property="og:title" content="Book a Run · DAD Record Cutters">
+<meta property="og:description" content="Your music, cut to record in Athens, one at a time.">
+<meta property="og:url" content="https://museumagency.github.io/DADRC/book/">
+<meta property="og:image" content="https://museumagency.github.io/DADRC/book/book-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://museumagency.github.io/DADRC/book/book-share.jpg">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Book a Run · DAD Record Cutters</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Public+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a work order — what happens on the left, the order form on the right; one column on phones */
+:root{
+  --paper:#EEF0EC; --ink:#15181C; --muted:#5A6068; --rule:#C9CDC6; --groove:#E2E5DF; --field:#F7F8F5;
+  --accent:#2338B8; --accent-ink:#FFFFFF; --orange:#D55A22; --ok:#1E7A45;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --gutL:max(24px,env(safe-area-inset-left,0px)); --gutR:max(24px,env(safe-area-inset-right,0px)); --padT:24px; --navH:58px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#111418; --ink:#E6E8E3; --muted:#9AA1A9; --rule:#2C3238; --groove:#1A1F24; --field:#171B20;
+  --accent:#8C9CFF; --accent-ink:#0E1220; --orange:#F0956A; --ok:#4FC184; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111418; --ink:#E6E8E3; --muted:#9AA1A9; --rule:#2C3238; --groove:#1A1F24; --field:#171B20;
+  --accent:#8C9CFF; --accent-ink:#0E1220; --orange:#F0956A; --ok:#4FC184; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding-left:var(--gutL);padding-right:var(--gutR);padding-block:var(--padT) 0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* customer menu bar */
+.dad-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--paper);border-bottom:1px solid var(--rule);
+  margin:calc(-1 * var(--padT)) calc(-1 * var(--gutR)) 0 calc(-1 * var(--gutL));padding:10px var(--gutR) 10px var(--gutL);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;height:var(--navH)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:16;background:var(--paper)}
+.dad-brand{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.06em;color:var(--ink);text-decoration:none}
+.dad-brand span{color:var(--orange)}
+.dad-menu-btn{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:transparent;border:2px solid var(--ink);padding:7px 12px;cursor:pointer}
+.dad-menu-btn:hover{font-weight:700}
+.dad-burger{display:inline-flex;flex-direction:column;gap:4px;width:18px}
+.dad-burger i{display:block;height:2px;background:var(--ink)}
+.dad-menu{position:absolute;top:100%;right:var(--gutR);width:min(320px,calc(100vw - var(--gutL) - var(--gutR)));background:var(--paper);border:2px solid var(--ink);padding:16px 18px 18px;display:grid;gap:14px;box-shadow:0 10px 24px rgba(0,0,0,.14)}
+.dad-menu h5{margin:0 0 8px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dad-stack{display:grid;gap:8px}
+.dad-link{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--rule);color:var(--ink);text-decoration:none;font-weight:600}
+a.dad-link:hover,a.dad-link:focus-visible{border-color:var(--accent);color:var(--accent)}
+.dad-link span{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:400}
+.dad-link[aria-current="page"]{border-color:var(--ink);background:var(--groove)}
+.dad-link.soon{color:var(--muted)}
+.dad-contact{display:grid;gap:4px;font-family:var(--mono);font-size:14px}
+.dad-contact span{user-select:all}
+
+/* page */
+.wrap{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:48px;padding-block:40px 64px;align-items:start}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(52px,7vw,92px);line-height:.88;margin:10px 0 16px;text-transform:uppercase;border-top:10pt solid var(--orange);padding-top:14px;text-wrap:balance}
+h1 span{color:var(--accent)}
+.lede{font-size:19px;line-height:1.45;margin:0 0 24px;max-width:34ch}
+ol.how{list-style:none;margin:0;padding:0;display:grid;gap:0}
+ol.how li{display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;padding:14px 0;border-top:1px solid var(--rule)}
+ol.how .n{font-family:var(--display);font-weight:900;font-size:28px;line-height:1;color:var(--accent)}
+ol.how h3{margin:0;font-size:16px}
+ol.how p{margin:2px 0 0;font-size:15px;color:var(--muted)}
+.aside-note{margin-top:20px;font-size:14px;color:var(--muted)}
+.aside-note strong{color:var(--ink)}
+
+form{border:2px solid var(--ink);background:var(--field);padding:28px 28px 30px;display:grid;gap:26px}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:14px;min-width:0}
+legend{font-family:var(--display);font-weight:800;font-size:26px;text-transform:uppercase;line-height:1;padding:0;margin-bottom:14px}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+label.f{display:flex;flex-direction:column;gap:5px;font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);min-width:0}
+label.f em{font-style:normal;color:var(--orange)}
+input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],select,textarea{font:inherit;font-family:var(--body);font-size:16px;text-transform:none;letter-spacing:0;color:var(--ink);background:var(--paper);border:2px solid var(--ink);border-radius:0;padding:10px 12px;min-width:0;width:100%;height:46px}
+textarea{height:auto;min-height:96px;resize:vertical}
+.q{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{position:relative;cursor:pointer}
+.chips input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chips span{display:inline-flex;align-items:center;min-height:42px;padding:8px 14px;border:2px solid var(--rule);background:var(--paper);font-size:15px;font-weight:600}
+.chips label:hover span{border-color:var(--ink)}
+.chips input:checked+span{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.chips input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.chips input:disabled+span{opacity:.45;cursor:not-allowed}
+.hint{font-size:13px;color:var(--muted);margin:0}
+.terms{border:2px solid var(--ink);background:var(--paper);padding:16px 18px;display:grid;gap:8px}
+.terms h3{margin:0;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.terms ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:15px}
+.terms a{color:var(--accent);font-weight:700}
+.agree{display:grid;grid-template-columns:22px minmax(0,1fr);gap:12px;align-items:start;font-size:15px;cursor:pointer}
+.agree input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent)}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.btn{font-family:var(--mono);font-size:14px;letter-spacing:.05em;text-transform:uppercase;padding:13px 20px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer}
+.btn:hover{font-weight:700}
+.btn:disabled{opacity:.6;cursor:wait}
+.status{font-size:14px;color:var(--muted)}
+.status.err{color:var(--orange)}
+.thanks{border:2px solid var(--ok);background:var(--field);padding:32px 28px;display:grid;gap:12px}
+.thanks h2{font-family:var(--display);font-weight:900;font-size:48px;line-height:.95;margin:0;text-transform:uppercase;color:var(--ok)}
+.thanks p{margin:0;max-width:52ch}
+
+.band{background:#000;color:#fff;margin-left:calc(-1 * var(--gutL));margin-right:calc(-1 * var(--gutR));padding:24px var(--gutR) calc(24px + env(safe-area-inset-bottom,0px)) var(--gutL)}
+.band p{max-width:1120px;margin:0 auto;font-family:var(--mono);font-size:13px;color:#fff}
+
+@media (max-width:860px){
+  :root{--gutL:max(15pt,env(safe-area-inset-left,0px));--gutR:max(15pt,env(safe-area-inset-right,0px));--padT:15pt}
+  .wrap{grid-template-columns:minmax(0,1fr);gap:32px;padding-block:28px 15pt}
+  form{padding:20px 18px 22px}
+  .row{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+
+</head>
+<body>
+<nav class="dad-nav" aria-label="Site">
+  <a class="dad-brand" href="../book/">DAD<span>RC</span></a>
+  <button class="dad-menu-btn" id="dad-menu-btn" type="button" aria-expanded="false" aria-controls="dad-menu"><span class="dad-burger" aria-hidden="true"><i></i><i></i><i></i></span>Menu</button>
+  <div class="dad-menu" id="dad-menu" hidden>
+    <div><h5>Records</h5><div class="dad-stack"><a class="dad-link" href="../book/" aria-current="page">Book a run <span>You are here</span></a><a class="dad-link" href="../prices/">Prices <span>Build a quote</span></a><a class="dad-link" href="../faq/">FAQ <span>Questions, answered</span></a></div></div>
+    <div><h5>Contact Josh</h5><div class="dad-contact"><span>josh@museum-llc.com</span><span>770.212.0732</span></div></div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section>
+    <div class="eyebrow">DAD Record Cutters · Athens, GA</div>
+    <h1>Book a <span>run</span></h1>
+    <p class="lede">Your music, cut to record in Athens, one at a time. Tell us what you're making and we'll come back with a quote.</p>
+    <ol class="how">
+      <li><span class="n">1</span><div><h3>Send this request</h3><p>A few details about the record. Nothing is booked yet.</p></div></li>
+      <li><span class="n">2</span><div><h3>Get a quote</h3><p>Josh replies by email with a price and a date.</p></div></li>
+      <li><span class="n">3</span><div><h3>Master and cut</h3><p>Mike masters your audio for the lathe and cuts every record in real time.</p></div></li>
+      <li><span class="n">4</span><div><h3>Pick up in Athens</h3><p>Labeled, sleeved and jacketed. Shipping is available too.</p></div></li>
+    </ol>
+    <p class="aside-note"><strong>Cut, not pressed.</strong> Each record is cut on a lathe, so small runs are no problem: no 300-copy minimum and no months-long wait for a pressing plant.</p>
+  </section>
+
+  <section aria-label="Booking request">
+    <form id="book" novalidate>
+      <fieldset>
+        <legend>You</legend>
+        <div class="row">
+          <label class="f" for="artist"><span>Band or artist <em>*</em></span><input type="text" id="artist" name="artist" autocomplete="organization" required></label>
+          <label class="f" for="contact"><span>Your name <em>*</em></span><input type="text" id="contact" name="contact" autocomplete="name" required></label>
+        </div>
+        <div class="row">
+          <label class="f" for="email"><span>Email <em>*</em></span><input type="email" id="email" name="email" autocomplete="email" required></label>
+          <label class="f" for="phone">Phone<input type="tel" id="phone" name="phone" autocomplete="tel"></label>
+        </div>
+        <label class="f" for="link">Instagram, Bandcamp or website<input type="text" id="link" name="link" placeholder="@yourband or a link"></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>The record</legend>
+        <div><p class="q" id="q-size">Size <em style="color:var(--orange)">*</em></p>
+          <div class="chips" role="radiogroup" aria-labelledby="q-size">
+            <label><input type="radio" name="size" value='7"' id="size-7"><span>7"</span></label>
+            <label><input type="radio" name="size" value='10"' id="size-10" checked><span>10"</span></label>
+            <label><input type="radio" name="size" value='12" (coming soon)' id="size-12" disabled><span>12" · coming soon</span></label>
+            <label><input type="radio" name="size" value="Not sure" id="size-ns"><span>Not sure</span></label>
+          </div></div>
+        <div><p class="q" id="q-qty">How many <em style="color:var(--orange)">*</em></p>
+          <div class="chips" role="radiogroup" aria-labelledby="q-qty">
+            <label><input type="radio" name="qty" value="1–9" id="qty-1"><span>1–9</span></label>
+            <label><input type="radio" name="qty" value="10–19" id="qty-10"><span>10–19</span></label>
+            <label><input type="radio" name="qty" value="20–29" id="qty-20" checked><span>20–29</span></label>
+            <label><input type="radio" name="qty" value="30–50" id="qty-30"><span>30–50</span></label>
+            <label><input type="radio" name="qty" value="50+" id="qty-50"><span>50+</span></label>
+          </div></div>
+        <div class="row">
+          <label class="f" for="tracks">Number of songs<input type="number" id="tracks" name="tracks" min="1" max="30" inputmode="numeric"></label>
+          <label class="f" for="minutes">Longest side, minutes<input type="number" id="minutes" name="minutes" min="1" max="30" inputmode="numeric" placeholder="e.g. 12"></label>
+        </div>
+        <div><p class="q" id="q-comp">One artist or a compilation?</p>
+          <div class="chips" role="radiogroup" aria-labelledby="q-comp">
+            <label><input type="radio" name="compilation" value="One artist" id="comp-no" checked><span>One artist</span></label>
+            <label><input type="radio" name="compilation" value="Compilation" id="comp-yes"><span>Compilation</span></label>
+          </div>
+          <p class="hint" style="margin-top:6px">Compilations are mastered track by track, so they take a little longer.</p></div>
+        <div><p class="q" id="q-audio">Where's the audio?</p>
+          <div class="chips" role="radiogroup" aria-labelledby="q-audio">
+            <label><input type="radio" name="audio" value="Mixed and mastered" id="audio-mm"><span>Mixed and mastered</span></label>
+            <label><input type="radio" name="audio" value="Mixed, not mastered" id="audio-m"><span>Mixed, not mastered</span></label>
+            <label><input type="radio" name="audio" value="Still recording" id="audio-r"><span>Still recording</span></label>
+          </div></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Look and timing</legend>
+        <div><p class="q" id="q-art">Artwork</p>
+          <div class="chips" role="radiogroup" aria-labelledby="q-art">
+            <label><input type="radio" name="artwork" value="We have artwork" id="art-have"><span>We have artwork</span></label>
+            <label><input type="radio" name="artwork" value="Design it for us" id="art-design"><span>Design it for us</span></label>
+            <label><input type="radio" name="artwork" value="Not sure yet" id="art-ns"><span>Not sure yet</span></label>
+          </div></div>
+        <div><p class="q" id="q-pack">Packaging</p>
+          <div class="chips" aria-labelledby="q-pack">
+            <label><input type="checkbox" name="packaging" value="Printed labels" id="pk-labels" checked><span>Printed labels</span></label>
+            <label><input type="checkbox" name="packaging" value="Inner sleeves" id="pk-sleeves" checked><span>Inner sleeves</span></label>
+            <label><input type="checkbox" name="packaging" value="Printed jackets" id="pk-jackets" checked><span>Printed jackets</span></label>
+          </div></div>
+        <div class="row">
+          <label class="f" for="needby">Need them by<input type="date" id="needby" name="needby"></label>
+          <label class="f" for="occasion">What's it for<select id="occasion" name="occasion">
+            <option value="">Choose one</option><option>Release show</option><option>Tour merch</option><option>Gift or keepsake</option><option>Something else</option></select></label>
+        </div>
+        <div><p class="q" id="q-get">Getting them</p>
+          <div class="chips" role="radiogroup" aria-labelledby="q-get">
+            <label><input type="radio" name="delivery" value="Pick up in Athens" id="del-pick" checked><span>Pick up in Athens</span></label>
+            <label><input type="radio" name="delivery" value="Ship them" id="del-ship"><span>Ship them</span></label>
+          </div></div>
+        <label class="f" for="notes">Anything else<textarea id="notes" name="notes" placeholder="Colored vinyl ideas, deadlines, questions"></textarea></label>
+      </fieldset>
+
+      <div class="terms" id="terms">
+        <h3>Deposit and refunds</h3>
+        <ul>
+          <li>A 50% deposit books your date and pays for materials. The balance is due at pickup, or before we ship.</li>
+          <li>Nothing is cut or printed until you approve the proof.</li>
+          <li>Your deposit is refunded in full until we order materials or start on your audio. After that it isn't refunded.</li>
+          <li>If we miss your promised date by 7 days or more, you can cancel for a full refund.</li>
+          <li>Records damaged in shipping (photo within 7 days) or with our mistakes are remade free.</li>
+        </ul>
+        <p class="hint">Full details on the <a href="../faq/#booking">FAQ</a>. You won't be charged anything by sending this form.</p>
+      </div>
+      <label class="agree" for="terms-ok"><input type="checkbox" id="terms-ok" name="terms_ok" required><span>We've read the deposit and refund terms.</span></label>
+      <label class="agree" for="rights"><input type="checkbox" id="rights" name="rights" required><span>We own or have permission to use the music and artwork we'll send.</span></label>
+      <div class="actions"><button class="btn" type="submit" id="send">Send request</button><span class="status" id="status" role="status" aria-live="polite"></span></div>
+    </form>
+
+    <div class="thanks" id="thanks" hidden tabindex="-1">
+      <h2>Request sent</h2>
+      <p id="thanks-text">Thanks. Josh will reply by email with a quote and the next steps.</p>
+      <p class="hint">Questions in the meantime: josh@museum-llc.com or 770.212.0732.</p>
+    </div>
+  </section>
+</main>
+
+<div class="band"><p>DAD Record Cutters · Athens, Georgia · Records cut one at a time.</p></div>
+
+<script>
+/* Booking requests go to Josh through Formspree. */
+var FORM_ENDPOINT="https://formspree.io/f/mnpppzja";
+(function(){var b=document.getElementById('dad-menu-btn'),m=document.getElementById('dad-menu');
+function set(o){m.hidden=!o;b.setAttribute('aria-expanded',o?'true':'false')}
+b.addEventListener('click',function(e){e.stopPropagation();set(m.hidden)});
+document.addEventListener('click',function(e){if(!m.hidden&&!m.contains(e.target))set(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden){set(false);b.focus()}});})();
+
+(function(){
+  var form=document.getElementById('book'),st=document.getElementById('status'),btn=document.getElementById('send');
+  /* fill in from a quote built on the Prices page */
+  try{var qs=new URLSearchParams(location.search),sz=qs.get('size'),qn=parseInt(qs.get('qty'),10),ar=parseInt(qs.get('artists'),10);
+    if(sz==='7')document.getElementById('size-7').checked=true;if(sz==='10')document.getElementById('size-10').checked=true;
+    if(qn){var id=qn<10?'qty-1':qn<20?'qty-10':qn<30?'qty-20':qn<=50?'qty-30':'qty-50';document.getElementById(id).checked=true;
+      var nt=document.getElementById('notes');if(!nt.value)nt.value='From the price calculator: '+qn+' × '+(sz||'10')+'"'+(ar>1?', '+ar+' artists':'')+'.'}
+    if(ar>1)document.getElementById('comp-yes').checked=true}catch(e){}
+  var nb=document.getElementById('needby');var t=new Date();t.setDate(t.getDate()+7);nb.min=t.toISOString().slice(0,10);
+  function val(id){return document.getElementById(id).value.trim()}
+  function radio(n){var x=form.querySelector('input[name="'+n+'"]:checked');return x?x.value:''}
+  function err(msg,id){st.className='status err';st.textContent=msg;if(id)document.getElementById(id).focus()}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!val('artist'))return err('Add your band or artist name.','artist');
+    if(!val('contact'))return err('Add your name.','contact');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email')))return err('Enter an email we can reply to.','email');
+    if(!radio('size'))return err('Choose a record size.');
+    if(!radio('qty'))return err('Choose how many records.');
+    if(!document.getElementById('terms-ok').checked)return err('Check the box to confirm you\'ve read the deposit and refund terms.','terms-ok');
+    if(!document.getElementById('rights').checked)return err('Check the box to confirm you have the rights to the music and artwork.','rights');
+    var pk=[].map.call(form.querySelectorAll('input[name="packaging"]:checked'),function(x){return x.value}).join(', ');
+    var rec={artist:val('artist'),contact:val('contact'),email:val('email'),phone:val('phone'),link:val('link'),
+      size:radio('size'),quantity:radio('qty'),songs:val('tracks'),longest_side_minutes:val('minutes'),compilation:radio('compilation'),
+      audio:radio('audio'),artwork:radio('artwork'),packaging:pk||'None',need_by:val('needby'),occasion:val('occasion'),
+      delivery:radio('delivery'),notes:val('notes'),rights_confirmed:'yes',terms_accepted:'Deposit and refund terms, 2026-10-26',sent_at:new Date().toISOString(),
+      _subject:'DADRC booking request: '+val('artist')+' ('+radio('qty')+' × '+radio('size')+')',_replyto:val('email')};
+    function done(){form.hidden=true;var th=document.getElementById('thanks');th.hidden=false;
+      document.getElementById('thanks-text').textContent='Thanks, '+rec.contact.split(' ')[0]+'. Josh will reply to '+rec.email+' with a quote and the next steps.';th.focus()}
+    if(FORM_ENDPOINT.indexOf('YOUR_FORM_ID')!==-1){st.className='status';st.textContent='Preview: request not sent.';setTimeout(done,700);return}
+    btn.disabled=true;st.className='status';st.textContent='Sending…';
+    fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify(rec)})
+      .then(function(r){if(!r.ok)throw new Error(r.status);done()})
+      .catch(function(){btn.disabled=false;err("Your request didn't send. Check your connection and try again, or email josh@museum-llc.com.")});
+  });
+})();
+</script>
+
+</body>
+</html>
