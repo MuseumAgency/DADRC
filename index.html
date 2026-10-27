@@ -151,6 +151,10 @@ tr.total td{font-weight:700;border-bottom:2px solid var(--ink)}
 .sign .actions{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
 .sign .status{font-size:14px;color:var(--muted)}
 .sign .status.err{color:var(--warn)}
+.again{margin-top:22px;border-top:1px solid var(--rule);padding-top:16px}
+.again-toggle{background:none;border:0;padding:0;text-align:left;font:inherit;font-size:15px;color:var(--accent);text-decoration:underline;cursor:pointer}
+.again-toggle:hover{font-weight:700}
+.again .sign{margin-top:14px}
 .sig-date{font-family:var(--mono);font-size:14px;color:var(--ink)}
 @media (max-width:760px){.sign{grid-template-columns:1fr}.gate{padding-block:28px 40px}}
 /* footer band: black in both themes */
@@ -272,6 +276,15 @@ footer p{max-width:60ch;margin:0}
     <label class="agree" for="sig-agree"><input type="checkbox" id="sig-agree" name="agree" required> I have read this agreement and agree to its terms.</label>
     <div class="actions"><button class="btn primary" type="submit" id="sig-submit">Sign and open</button><span class="status" id="sig-status" role="status" aria-live="polite"></span></div>
   </form>
+
+  <div class="again">
+    <button class="again-toggle" type="button" id="again-toggle" aria-expanded="false" aria-controls="again-form">Already signed? Open the plan with your name and email</button>
+    <form class="sign" id="again-form" novalidate hidden>
+      <label for="again-name">Full name<input type="text" id="again-name" autocomplete="name" required></label>
+      <label for="again-email">Email you signed with<input type="email" id="again-email" autocomplete="email" required></label>
+      <div class="actions"><button class="btn primary" type="submit" id="again-submit">Open the plan</button><span class="status" id="again-status" role="status" aria-live="polite"></span></div>
+    </form>
+  </div>
 </section>
 
 <div class="wrap" id="pitch" hidden>
@@ -280,6 +293,7 @@ footer p{max-width:60ch;margin:0}
   <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>Menu</button>
   <div class="menu" id="menu" hidden>
     <div><h5>Sections</h5><div class="codes"><a href="#a1">A1</a><a href="#a2">A2</a><a href="#a3">A3</a><a href="#a4">A4</a><a href="#a5">A5</a><a href="#a6">A6</a><a href="#b1">B1</a><a href="#b2">B2</a><a href="#b3">B3</a><a href="#b4">B4</a><a href="#b5">B5</a><a href="#b6">B6</a></div></div>
+    <div class="rd"><h5>Plan</h5><a href="https://claude.ai/artifact/CTrVngFvwUV1VsAYdCnhwJ" target="_blank" rel="noopener">Roadmap, Nov – Jan <span>Opens in a new tab</span></a></div>
     <div class="rd"><h5>R&amp;D</h5><a href="https://claude.ai/artifact/1bWi4weUuCLtZAFG6ZyT7E" target="_blank" rel="noopener">Run Timer <span>Opens in a new tab</span></a></div>
   </div>
 </nav>
@@ -641,6 +655,24 @@ var NDA_VERSION = "v1 2026-10-26";
     fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify(record)})
       .then(function(r){if(!r.ok)throw new Error(r.status);done()})
       .catch(function(){btn.disabled=false;status.className='status err';status.textContent="Your signature couldn't be recorded. Check your connection and try again, or text Josh at 770.212.0732."});
+  });
+
+  /* returning signer: name + email, logged as a visit */
+  var tog=document.getElementById('again-toggle'), af=document.getElementById('again-form'), ast=document.getElementById('again-status'), abtn=document.getElementById('again-submit');
+  tog.addEventListener('click',function(){af.hidden=!af.hidden;tog.setAttribute('aria-expanded',af.hidden?'false':'true');if(!af.hidden)document.getElementById('again-name').focus()});
+  af.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=document.getElementById('again-name').value.trim(), email=document.getElementById('again-email').value.trim();
+    ast.className='status err';
+    if(name.split(/\s+/).length<2){ast.textContent='Type your full name, first and last.';return}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ast.textContent='Enter the email you signed with.';return}
+    var rec={name:name,email:email,type:'returning visitor, confirms earlier signature',visited_at:new Date().toISOString(),nda_version:NDA_VERSION,page:location.href,_subject:'DADRC returning visitor: '+name};
+    function done(){try{localStorage.setItem(KEY,JSON.stringify({name:name,at:rec.visited_at,returning:true}))}catch(e){}open()}
+    if(FORM_ENDPOINT.indexOf('YOUR_FORM_ID')!==-1){ast.className='status';ast.textContent='Test mode: visit not recorded.';setTimeout(done,700);return}
+    abtn.disabled=true;ast.className='status';ast.textContent='Opening…';
+    fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify(rec)})
+      .then(function(r){if(!r.ok)throw new Error(r.status);done()})
+      .catch(function(){abtn.disabled=false;ast.className='status err';ast.textContent="Couldn't open the plan. Check your connection and try again."});
   });
 })();
 </script>
